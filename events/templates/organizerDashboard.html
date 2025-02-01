@@ -1,0 +1,59 @@
+{% extends "event.html" %}
+
+{% block content %}
+<section class="container mx-auto flex justify-between items-center mt-8 mb-5 px-5">
+    <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">Organizer Dashboard</h1>
+    <button class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded hover:bg-[#f8d776]">
+        <i class="fas fa-plus mr-2"></i>New Event
+    </button>
+</section>
+<main class="px-5">
+    <!--stats grid-->
+    <section class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-500">Total Events</p>
+                    <p class="text-3xl font-bold">12</p>
+                </div>
+                <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-calendar text-[#18BC9C]"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-500">Upcoming events</p>
+                    <p class="text-3xl font-bold">25</p>
+                </div>
+                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-calendar-plus text-red-400"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-500">Past events</p>
+                    <p class="text-3xl font-bold">151</p>
+                </div>
+                <div class="w-12 h-12 bg-[#2C3E50]/20 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-calendar-check text-[#2C3E50]"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-500">Total participants</p>
+                    <p class="text-3xl font-bold">12</p>
+                </div>
+                <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-users text-[#18BC9C]"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

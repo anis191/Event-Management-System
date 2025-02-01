@@ -1,0 +1,47 @@
+{% extends "event.html" %}
+
+{% block content %}
+<main>
+    <!--hero section-->
+    <div class="bg-gradient-to-r from-[#18BC9C] to-[#2C3E50] text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">EventZone - Manage Events</h1>
+            <p class="text-xl mb-8">Create, organize, and manage events with EventZone platform</p>
+            <button class="bg-[#F1C40F] text-[#2C3E50] px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transition-transform">
+                Get Started <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>    
+    <!--feature cards-->
+    <div class="container mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature Card 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div class="w-12 h-12 bg-[#18BC9C] rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-calendar-week text-xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Create Events</h3>
+                <p class="text-gray-600">Click here and create events.</p>
+            </div>
+
+            <!-- Feature Card 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div class="w-12 h-12 bg-[#F1C40F] rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-chart-line text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Dashboard</h3>
+                <p class="text-gray-600">Click here to see details dashboard</p>
+            </div>
+
+            <!-- Feature Card 3 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div class="w-12 h-12 bg-[#2C3E50] rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-users text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">About Us</h3>
+                <p class="text-gray-600">Click here for more information</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
