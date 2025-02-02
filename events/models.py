@@ -15,7 +15,8 @@ class Event(models.Model):
     location = models.CharField(max_length=255)
     category = models.ForeignKey(
         "Category",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        default=1
     )
     assign_to = models.ManyToManyField(
         Participant,

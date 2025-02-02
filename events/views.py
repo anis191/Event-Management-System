@@ -7,7 +7,12 @@ from django.db.models import Q, Avg, Count, Min, Max, Sum
 from datetime import date
 
 def home(request):
-    return render(request, "home.html")
+    events = Event.objects.filter(date__gt = date.today())
+    context = {
+        "events" : events,
+        "title" : "Upcoming"
+    }
+    return render(request, "home.html", context)
 
 def organizerDashboard(request):
     type = request.GET.get('type')
@@ -22,12 +27,7 @@ def organizerDashboard(request):
     total_Participants = Participant.objects.aggregate(total = Count('id'))
     all_category = Category.objects.all()
 
-    base_query = Event.objects.prefetch_related('category')
-    if request.method == 'POST':
-        category_id = request.POST.get('category')
-        from_date = request.POST.get('from_date')
-        to_date = request.POST.get('to_date')
-
+    base_query = Event.objects.select_related('category').prefetch_related('assign_to')
 
     if type == 'all':
         events = base_query.all()
@@ -37,6 +37,17 @@ def organizerDashboard(request):
         events = base_query.filter(date__lt=date.today())
     else:
         events = base_query.filter(date=date.today())
+    
+    if request.method == 'POST':
+        category_id = request.POST.get('category')
+        from_date = request.POST.get('from_date')
+        to_date = request.POST.get('to_date')
+        events = base_query.filter(
+            category = category_id,
+            date__gt = from_date,
+            date__lt = to_date,
+        )
+        title = "Found"
 
     context = {
         "counts" : counts,
@@ -60,3 +71,25 @@ def event_form(request):
         "event_form" : event_form
     }
     return render(request, "event_form.html", context)
+
+def update_event(request, id):
+    event = Event.objects.get(id = id)
+    event_form = EventModelForm(instance=event)
+
+    if request.method == 'POST':
+        event_form = EventModelForm(request.POST,instance=event)
+        if event_form.is_valid():
+            event_form.save()
+            messages.success(request, "Event Update Successfully!")
+            return redirect("update-event", id)
+    context = {
+        "event_form" : event_form
+    }
+    return render(request, "event_form.html", context)
+
+def delete_event(request, id):
+    if request.method == 'GET':
+        event = Event.objects.get(id=id)
+        event.delete()
+        messages.success(request ,"Event Delete Successfully!")
+        return redirect('organizer-dashboard')

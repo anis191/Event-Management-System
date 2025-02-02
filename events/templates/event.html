@@ -36,16 +36,16 @@
                             <span><i class="fas fa-map-marker-alt mr-2"></i>{{event.location}}</span>
                         </p>
                         <div class="flex gap-5 justify-center">
-                            <form action="" method='POST'>
+                            <a href="{% url "update-event" event.id %}">
                                 <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085]">
                                     Edit
                                 </button>
-                            </form>
-                            <form action="" method='POST'>
+                            </a>
+                            <a href="{% url "delete-event" event.id %}">
                                 <button type="submit" class="bg-[#E74C3C] text-white px-4 py-2 rounded hover:bg-[#C0392B]">
                                     Delete
                                 </button>
-                            </form>
+                            </a>
                         </div>
                     </div>
                 </div>

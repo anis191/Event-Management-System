@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Form</title>
     <link rel="stylesheet" href="{% static "CSS/output.css" %}">
-    {% comment %} <script src="https://unpkg.com/@tailwindcss/browser@4"></script> {% endcomment %}
 </head>
 <body class="bg-gray-100">
     <section class="w-full flex justify-center">
@@ -24,7 +23,6 @@
                 <form action="" method="POST" class="flex flex-col gap-2">
                     {% csrf_token %}
                     {{ event_form.as_p }}
-                    {% comment %} {{ task_detail_form.as_p }} {% endcomment %}
                     <button type="submit" class="bg-rose-500 text-white px-7 py-3 w-1/2 mx-auto rounded-md">Submit</button>
                 </form>
             </main>    
