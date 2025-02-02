@@ -20,7 +20,7 @@ class Event(models.Model):
     assign_to = models.ManyToManyField(
         Participant,
         related_name="events",
-        default=1
+        # default=1
     )
 
 class Category(models.Model):

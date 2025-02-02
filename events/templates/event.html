@@ -18,23 +18,38 @@
 
     {% endblock content %}
 
-        <!--upcomming events card-->
+        <!--events-->
         <div class="container mx-auto px-6 py-12">
-            <h2 class="text-3xl font-bold text-center mb-8 text-[#2C3E50]">Upcoming Events</h2>
+            <h2 class="text-3xl font-bold text-center mb-8 text-[#2C3E50]">{{title}} Events</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Event Card 1 -->
+                {% for event in events %}
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                     <img src="https://static.inevent.com/images/event-management-software.jpg" alt="Event" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <div class="text-sm text-[#18BC9C] font-semibold mb-2">June 25, 2023</div>
-                        <h3 class="text-xl font-bold mb-2">Tech Conference 2023</h3>
-                        <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt mr-2"></i>New York City, NY</p>
-                        <button class="w-full bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#34495E] transition-colors">
-                            View Details
-                        </button>
+                        <div class="text-sm text-[#18BC9C] font-semibold mb-2">{{event.date}}</div>
+                        <div class="text-gray-600 flex justify-between">
+                            <h3 class="text-xl font-bold mb-2">{{event.name}}</h3>
+                            <span><i class="fa-solid fa-list mr-2"></i></i>{{event.category}}</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <span><i class="fas fa-map-marker-alt mr-2"></i>{{event.location}}</span>
+                        </p>
+                        <div class="flex gap-5 justify-center">
+                            <form action="" method='POST'>
+                                <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085]">
+                                    Edit
+                                </button>
+                            </form>
+                            <form action="" method='POST'>
+                                <button type="submit" class="bg-[#E74C3C] text-white px-4 py-2 rounded hover:bg-[#C0392B]">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-    
+                {% endfor %}
                 <!-- Add more event cards here -->
             </div>
         </div>    

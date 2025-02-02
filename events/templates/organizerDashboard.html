@@ -7,47 +7,54 @@
         <i class="fas fa-plus mr-2"></i>New Event
     </button>
 </section>
+
 <main class="px-5">
-    <!--stats grid-->
+    {% comment %} stats grid {% endcomment %}
     <section class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+    <a href="{% url "organizer-dashboard" %}?type=all&title=All">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500">Total Events</p>
-                    <p class="text-3xl font-bold">12</p>
+                    <p class="text-3xl font-bold">{{counts.total_event}}</p>
                 </div>
                 <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
                     <i class="fas fa-calendar text-[#18BC9C]"></i>
                 </div>
             </div>
         </div>
+    </a>
+    <a href="{% url "organizer-dashboard" %}?type=upcoming&title=Upcoming">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500">Upcoming events</p>
-                    <p class="text-3xl font-bold">25</p>
+                    <p class="text-3xl font-bold">{{counts.upcoming}}</p>
                 </div>
                 <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                     <i class="fa-solid fa-calendar-plus text-red-400"></i>
                 </div>
             </div>
         </div>
+    </a>
+    <a href="{% url "organizer-dashboard" %}?type=past&title=Past">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500">Past events</p>
-                    <p class="text-3xl font-bold">151</p>
+                    <p class="text-3xl font-bold">{{counts.past}}</p>
                 </div>
                 <div class="w-12 h-12 bg-[#2C3E50]/20 rounded-full flex items-center justify-center">
                     <i class="fa-solid fa-calendar-check text-[#2C3E50]"></i>
                 </div>
             </div>
         </div>
+    </a>
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500">Total participants</p>
-                    <p class="text-3xl font-bold">12</p>
+                    <p class="text-3xl font-bold">{{total_Participants.total}}</p>
                 </div>
                 <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
                     <i class="fas fa-users text-[#18BC9C]"></i>
@@ -55,5 +62,41 @@
             </div>
         </div>
     </section>
+    {% comment %} search {% endcomment %}
+<section class="px-5 mb-8 lg:max-w-[80%] mx-auto">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <form action="" method="POST" class="space-y-4">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 justify-items-center">
+                {% comment %} category {% endcomment %}
+                <div>
+                    <label class="block text-sm font-medium text-[#2C3E50] mb-2">Category</label>
+                    <select name="category" class="p-2 border rounded">
+                        <option value="">Select Categories</option>
+                        {% for category in all_category %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% comment %} from {% endcomment %}
+                <div>
+                    <label class="block text-sm font-medium text-[#2C3E50] mb-2">From Date</label>
+                    <input type="date" name="from_date" class=" p-2 border rounded">
+                </div>
+                {% comment %} to {% endcomment %}
+                <div>
+                    <label class="block text-sm font-medium text-[#2C3E50] mb-2">To Date</label>
+                    <input type="date" name="to_date" class=" p-2 border rounded">
+                </div>
+                {% comment %} button {% endcomment %}
+                <div class="flex items-end">
+                    <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085]">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
 </main>
 {% endblock content %}
