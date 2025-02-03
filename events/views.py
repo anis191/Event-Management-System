@@ -7,7 +7,8 @@ from django.db.models import Q, Avg, Count, Min, Max, Sum
 from datetime import date
 
 def home(request):
-    events = Event.objects.filter(date__gt = date.today())
+    base_query = Event.objects.select_related('category')
+    events = base_query.filter(date__gt = date.today())
     context = {
         "events" : events,
         "title" : "Upcoming"
@@ -17,6 +18,7 @@ def home(request):
 def organizerDashboard(request):
     type = request.GET.get('type')
     title = request.GET.get('title', "Today's")
+    result = request.GET.get('search', '').strip()
 
     '''1.Total, 2.Upcoming, 3.Past 4.Participants'''
     counts = Event.objects.aggregate(
@@ -24,28 +26,35 @@ def organizerDashboard(request):
         upcoming = Count('id', filter=(Q(date__gt=date.today()))),
         past = Count('id', filter=(Q(date__lt=date.today())))
     )
-    total_Participants = Participant.objects.aggregate(total = Count('id'))
+    total_Participants = Participant.objects.count()
     all_category = Category.objects.all()
 
-    base_query = Event.objects.select_related('category').prefetch_related('assign_to')
+    base_query = Event.objects.select_related('category')
+    events = base_query.all()
 
-    if type == 'all':
-        events = base_query.all()
-    elif type == 'upcoming':
+    if type == 'upcoming':
         events = base_query.filter(date__gt=date.today())
     elif type == 'past':
         events = base_query.filter(date__lt=date.today())
-    else:
+    elif type != 'all':
         events = base_query.filter(date=date.today())
+    
+    if result:
+        events = base_query.filter(
+            Q(name__icontains=result) | Q(description__icontains=result)
+        )
+        title = "Found"
+
     
     if request.method == 'POST':
         category_id = request.POST.get('category')
         from_date = request.POST.get('from_date')
         to_date = request.POST.get('to_date')
-        events = base_query.filter(
-            category = category_id,
-            date__gt = from_date,
-            date__lt = to_date,
+        if from_date and to_date:
+            events = base_query.filter(
+                category = category_id,
+                date__gt = from_date,
+                date__lt = to_date,
         )
         title = "Found"
 

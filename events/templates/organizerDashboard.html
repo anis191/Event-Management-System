@@ -56,7 +56,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500">Total participants</p>
-                    <p class="text-3xl font-bold">{{total_Participants.total}}</p>
+                    <p class="text-3xl font-bold">{{total_Participants}}</p>
                 </div>
                 <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
                     <i class="fas fa-users text-[#18BC9C]"></i>
@@ -72,7 +72,7 @@
     {% endfor %}
     {% endif %}
     {% comment %} search {% endcomment %}
-<section class="px-5 mb-8 lg:max-w-[80%] mx-auto">
+<section class="px-5 mb-8 grid lg:grid-cols-[70%_auto] grid-cols-1">
     <div class="bg-white p-6 rounded-lg shadow-md">
         <form action="" method="POST" class="space-y-4">
             {% csrf_token %}
@@ -105,6 +105,14 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md flex justify-center items-center">
+        <form method="GET" action="{% url 'organizer-dashboard' %}">
+            <input type="text" class="border-2 border-green-500 p-2 rounded-md focus:outline-none focus:border-green-700" name="search" placeholder="Search events" value="{{ result }}">
+            <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085] lg:mt-0 mt-1">
+                Search
+            </button>
+        </form>        
     </div>
 </section>
 </main>
