@@ -5,16 +5,36 @@ from events.forms import *
 from django.contrib import messages
 from django.db.models import Q, Avg, Count, Min, Max, Sum
 from datetime import date
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.contrib.auth.models import User, Group, Permission
+
+
+def is_admin_or_organizer(user):
+    return user.groups.filter(name='Organizer').exists() or user.groups.filter(name='Admin').exists()
+
+def is_participant(user):
+    return user.groups.filter(name='Participant').exists()
 
 def home(request):
+    if request.user.is_authenticated:
+        if request.user.groups.filter(name='Admin').exists():
+            user_type = 'Admin'
+        elif request.user.groups.filter(name='Organizer').exists():
+            user_type = 'Organizer'
+    else:
+        user_type = None 
+
     base_query = Event.objects.select_related('category')
     events = base_query.filter(date__gt = date.today())
     context = {
         "events" : events,
-        "title" : "Upcoming"
+        "title" : "Upcoming",
+        "user_type" : user_type
     }
     return render(request, "home.html", context)
 
+@user_passes_test(is_admin_or_organizer, login_url='no-permission')
 def organizerDashboard(request):
     type = request.GET.get('type')
     title = request.GET.get('title', "Today's")
@@ -67,6 +87,9 @@ def organizerDashboard(request):
     }
     return render(request, "organizerDashboard.html", context)
 
+#Admin and Organizer both are create a events:
+@login_required
+@permission_required("events.add_event", login_url='no-permission')
 def event_form(request):
     event_form = EventModelForm()
 
@@ -81,6 +104,8 @@ def event_form(request):
     }
     return render(request, "event_form.html", context)
 
+@login_required
+@permission_required("events.change_event", login_url='no-permission')
 def update_event(request, id):
     event = Event.objects.get(id = id)
     event_form = EventModelForm(instance=event)
@@ -96,6 +121,8 @@ def update_event(request, id):
     }
     return render(request, "event_form.html", context)
 
+@login_required
+@permission_required("events.delete_event", login_url='no-permission')
 def delete_event(request, id):
     if request.method == 'GET':
         event = Event.objects.get(id=id)
