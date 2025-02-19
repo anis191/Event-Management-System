@@ -88,11 +88,6 @@
           <h2 class="text-xl font-semibold mb-5">ASSETS</h2>
           <div class="space-y-5">
             <img src={% if event.asset and event.asset.url %}{{event.asset.url}}{% else %}{{"https://static.inevent.com/images/event-management-software.jpg"}}{% endif %} alt="Event" class="w-full h-48 object-cover">
-            {% comment %} <img {% endcomment %}
-              {% comment %} src="{{event.asset.url}}" {% endcomment %}
-              {% comment %} alt="Event Zone App Images" {% endcomment %}
-              {% comment %} class="w-full rounded-lg" {% endcomment %}
-            {% comment %} /> {% endcomment %}
           </div>
         </div>
       </div>
