@@ -25,7 +25,7 @@
                 <!-- Event Card 1 -->
                 {% for event in events %}
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                    <img src="https://static.inevent.com/images/event-management-software.jpg" alt="Event" class="w-full h-48 object-cover">
+                    <img src={% if event.asset and event.asset.url %}{{event.asset.url}}{% else %}{{"https://static.inevent.com/images/event-management-software.jpg"}}{% endif %} alt="Event" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <div class="text-sm text-[#18BC9C] font-semibold mb-2">{{event.date}}</div>
                         <div class="text-gray-600 flex justify-between">
@@ -36,14 +36,14 @@
                             <span><i class="fas fa-map-marker-alt mr-2"></i>{{event.location}}</span>
                         </p>
                         <div class="flex gap-5 justify-center">
-                            <a href="{% url "update-event" event.id %}">
+                            <a href="{% url "event-details" event.id %}">
                                 <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085]">
-                                    Edit
+                                    Details
                                 </button>
                             </a>
-                            <a href="{% url "delete-event" event.id %}">
+                            <a href="{% url "rsvp-event" event.id %}">
                                 <button type="submit" class="bg-[#E74C3C] text-white px-4 py-2 rounded hover:bg-[#C0392B]">
-                                    Delete
+                                    RSVP
                                 </button>
                             </a>
                         </div>

@@ -2,12 +2,25 @@
 
 {% block content %}
 <section class="container mx-auto flex justify-between items-center mt-8 mb-5 px-5">
-    <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">Organizer Dashboard</h1>
-    <button class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded hover:bg-[#f8d776]">
-        <a href="{% url "event-form" %}">
-            <i class="fas fa-plus mr-2"></i>New Event
-        </a>
-    </button>
+    {% if user_type == "Admin" %}
+        <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">Manage Events</h1>
+    {% elif user_type == "Organizer" %}
+        <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">Organizer Dashboard</h1>
+    {% elif user_type == "Participant" %}
+        <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">All Events</h1>
+    {% endif %}
+    {% if user_type == 'Admin' or user_type == "Organizer" %}
+        <div class="flex flex-col sm:flex-row gap-2">
+            <a href="{% url 'event-form' %}" 
+               class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded hover:bg-[#f8d776] flex items-center justify-center">
+                <i class="fas fa-plus mr-2"></i>New Event
+            </a>
+            <a href="{% url 'create-category' %}" 
+               class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded hover:bg-[#f8d776] flex items-center justify-center">
+                <i class="fas fa-plus mr-2"></i>New Category
+            </a>    
+        </div>        
+    {% endif %}
 </section>
 
 <main class="px-5">

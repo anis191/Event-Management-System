@@ -43,8 +43,8 @@ class StyleFormMixin:
     common_class = "border-2 rounded-lg border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)  # Call parent constructor
-        self.apply_style()  # 🔹 Auto-call apply_style()
+        super().__init__(*args, **kwargs) 
+        self.apply_style()
 
     def apply_style(self):
         for field_name, field in self.fields.items():
@@ -90,7 +90,7 @@ class StyleFormMixin:
 class EventModelForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['name','description','date','time','location','category','assign_to']
+        fields = ['name','description','date','time','location','category','assign_to', 'asset']
         widgets = {
             'date' : forms.SelectDateWidget,
             'time' : forms.TimeInput(attrs={'type': 'time'}),
@@ -100,3 +100,8 @@ class EventModelForm(StyleFormMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)
         self.apply_style()
+
+class CategoryForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'description']

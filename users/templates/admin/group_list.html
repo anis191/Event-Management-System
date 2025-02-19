@@ -10,22 +10,31 @@
             <tr class="bg-gray-100">
               <th class="border border-gray-300 px-4 py-2">Group Name</th>
               <th class="border border-gray-300 px-4 py-2">Permissions</th>
+              <th class="border border-gray-300 px-4 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {% for group in groups %}
                 <tr class="odd:bg-white even:bg-gray-50">
                   <td class="border border-gray-300 px-4 py-2 font-medium">
-                    {{group.name}}
+                    {{ group.name }}
                   </td>
                   <td class="border border-gray-300 px-4 py-2">
                     <ul class="list-disc list-inside">
                       {% for permission in group.permissions.all %}
-                            <li>{{permission}}</li>
+                            <li>{{ permission }}</li>
                         {% empty %}
                             <span class="italic text-blue-500"> No Permissions Added</span>
                       {% endfor %}
                     </ul>
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2 text-center">
+                    <form action="{% url 'delete-group' group.id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700">
+                        Delete
+                      </button>
+                    </form>
                   </td>
                 </tr>
             {% endfor %}

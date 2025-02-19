@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="{% static "CSS/output.css" %}">
 </head>
 <body class="bg-gray-100">
-    <h1 class="text-4xl text-center font-extrabold text-transparent text-purple-600 py-3">Create Task</h1>    
-    <section class="w-full flex justify-center">
-        <div class="w-[50%] p-4 m-4 shadow-lg bg-white rounded-md">
-            <header>
+    {% include "admin/admin_navber.html" %}
+
+    <section class="w-full flex justify-center m-5">
+        <div class="lg:w-[50%] md:w-[70%] w-[80%] p-4 shadow-lg bg-white rounded-md">
+            <section>
                 {% if messages %}
                     {% for message in messages %}
                         <div class="px-4 py-2 {% if message.tags == 'success' %}bg-green-500{% endif %}">
@@ -19,14 +20,15 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-            </header>
-            <main>
-                <form action="" method="POST" class="flex flex-col gap-2">
+            </section>
+            <section>
+                <h2 class="text-2xl font-bold mb-4">Create New Task</h2>
+                <form action="" method="POST" class="flex flex-col gap-2" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ event_form.as_p }}
                     <button type="submit" class="bg-rose-500 text-white px-7 py-3 w-1/2 mx-auto rounded-md">Submit</button>
                 </form>
-            </main>    
+            </section>    
         </div>    
     </section>
 </body>

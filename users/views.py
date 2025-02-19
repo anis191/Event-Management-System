@@ -49,6 +49,8 @@ def activate_user(request, user_id, token):
         # now varify token using build in authenticate function:
         if default_token_generator.check_token(user, token):
             user.is_active = True
+            participant_group, created = Group.objects.get_or_create(name='Participant')
+            user.groups.add(participant_group)
             user.save()
             return redirect('sign-in')
         else:
@@ -98,4 +100,18 @@ def group_list(request):
     groups = Group.objects.prefetch_related('permissions__content_type').all()
     return render(request, 'admin/group_list.html', {"groups": groups})
 
-pass
+@user_passes_test(is_admin, login_url='no-permission')
+def delete_group(request, group_id):
+    if request.method == "POST":
+        group = Group.objects.get(id = group_id)
+        group.delete()
+        messages.success(request, "Group deleted successfully.")
+    return redirect('group-list')
+
+@user_passes_test(is_admin, login_url='no-permission')
+def delete_user(request, user_id):
+    if request.method == "POST":
+        user = User.objects.get(id = user_id)
+        user.delete()
+        messages.success(request, "User deleted successfully.")
+    return redirect('admin-dashboard')

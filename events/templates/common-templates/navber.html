@@ -17,13 +17,15 @@
                     <div class="hidden md:flex space-x-8">
                         <a href="{% url "home-page" %}" class="hover:text-[#18BC9C]">Home</a>
                         <a href="#" class="hover:text-[#18BC9C]">All Events</a>
-                        <a href="{% url "organizer-dashboard" %}" class="hover:text-[#18BC9C]">Dashboard</a>
+                        {% comment %} <a href="{% if user.is_authenticated %}{% url "organizer-dashboard" %}{% else %}{% url "sign-in" %}{% endif %}" class="hover:text-[#18BC9C]">Dashboard</a> {% endcomment %}
                         {% if request.user.is_authenticated %}
+                            <a href="{% if user_type == 'Admin' %}{% url "admin-dashboard" %}{% elif user_type == 'Organizer' %}{% url "organizer-dashboard" %}{% elif user_type == 'Participant' %}{% url "participant-dashboard" %}{% else %}{% url "sign-in" %}{% endif %}" class="hover:text-[#18BC9C]"> Dashboard</a>
                             <form method="post" action="{% url "sign-out" %}">
                                 {% csrf_token %}
                                 <button class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded-full hover:bg-[#f8d776]">Logout</button>
                             </form>
                         {% else %}
+                            <a href="{% url "sign-up" %}" class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded-full hover:bg-[#f8d776]">Sign Up</a>
                             <a href="{% url "sign-in" %}" class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded-full hover:bg-[#f8d776]">Login</a>
                         {% endif %}
                     </div>

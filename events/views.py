@@ -16,14 +16,18 @@ def is_admin_or_organizer(user):
 def is_participant(user):
     return user.groups.filter(name='Participant').exists()
 
+def user_role(user):
+    if user.is_authenticated:
+        if user.groups.filter(name='Admin').exists():
+            return 'Admin'
+        elif user.groups.filter(name='Organizer').exists():
+            return 'Organizer'
+        elif user.groups.filter(name='Participant').exists():
+            return 'Participant'
+    return None
+
 def home(request):
-    if request.user.is_authenticated:
-        if request.user.groups.filter(name='Admin').exists():
-            user_type = 'Admin'
-        elif request.user.groups.filter(name='Organizer').exists():
-            user_type = 'Organizer'
-    else:
-        user_type = None 
+    user_type = user_role(request.user)
 
     base_query = Event.objects.select_related('category')
     events = base_query.filter(date__gt = date.today())
@@ -34,11 +38,13 @@ def home(request):
     }
     return render(request, "home.html", context)
 
-@user_passes_test(is_admin_or_organizer, login_url='no-permission')
+@login_required
+# @user_passes_test(is_admin_or_organizer, login_url='no-permission')
 def organizerDashboard(request):
     type = request.GET.get('type')
     title = request.GET.get('title', "Today's")
     result = request.GET.get('search', '').strip()
+    user_type = user_role(request.user)
 
     '''1.Total, 2.Upcoming, 3.Past 4.Participants'''
     counts = Event.objects.aggregate(
@@ -46,7 +52,7 @@ def organizerDashboard(request):
         upcoming = Count('id', filter=(Q(date__gt=date.today()))),
         past = Count('id', filter=(Q(date__lt=date.today())))
     )
-    total_Participants = Participant.objects.count()
+    total_Participants = User.objects.count()
     all_category = Category.objects.all()
 
     base_query = Event.objects.select_related('category')
@@ -83,18 +89,20 @@ def organizerDashboard(request):
         "total_Participants" : total_Participants,
         "events" : events,
         "title" : title,
-        "all_category" : all_category
+        "all_category" : all_category,
+        "user_type" : user_type
     }
     return render(request, "organizerDashboard.html", context)
 
 #Admin and Organizer both are create a events:
-@login_required
-@permission_required("events.add_event", login_url='no-permission')
+# @login_required
+@user_passes_test(is_admin_or_organizer, login_url='no-permission')
+# @permission_required("events.add_events", login_url='no-permission')
 def event_form(request):
     event_form = EventModelForm()
 
     if request.method == 'POST':
-        event_form = EventModelForm(request.POST)
+        event_form = EventModelForm(request.POST, request.FILES)
         if event_form.is_valid():
             event_form.save()
             messages.success(request, "Event Create Successfully!")
@@ -105,7 +113,7 @@ def event_form(request):
     return render(request, "event_form.html", context)
 
 @login_required
-@permission_required("events.change_event", login_url='no-permission')
+@permission_required("events.change_events", login_url='no-permission')
 def update_event(request, id):
     event = Event.objects.get(id = id)
     event_form = EventModelForm(instance=event)
@@ -122,10 +130,54 @@ def update_event(request, id):
     return render(request, "event_form.html", context)
 
 @login_required
-@permission_required("events.delete_event", login_url='no-permission')
+@permission_required("events.delete_events", login_url='no-permission')
 def delete_event(request, id):
     if request.method == 'GET':
         event = Event.objects.get(id=id)
         event.delete()
         messages.success(request ,"Event Delete Successfully!")
         return redirect('organizer-dashboard')
+
+@login_required
+def rsvp_event(request, event_id):
+    event = Event.objects.get(id = event_id)
+    user_id = request.user.id
+    if event.rsvp.filter(id=user_id).exists():
+        messages.success(request, "You've already RSVP to this event.")
+    else:
+        event.rsvp.add(request.user)
+        event.save()
+        messages.success(request, "RSVP this event successful!")
+    return redirect('organizer-dashboard')
+
+@login_required
+# @user_passes_test(is_participant, login_url='no-permission')
+def participant_dashboard(request):
+    rsvped_events = request.user.rsvp_events.all()
+    user_type = user_role(request.user)
+    context = {
+        'events': rsvped_events,
+        'title': 'Your All RSVPs Events',
+        'user_type': user_type
+    }
+    return render(request, 'participantDashboard.html', context)
+
+@login_required
+# @permission_required("events.view_events", login_url='no-permission')
+def event_details(request, event_id):
+    user_type = user_role(request.user)
+    event = Event.objects.get(id = event_id)
+    return render(request, 'event_details.html', {"event" : event, "user_type":user_type})
+
+@user_passes_test(is_admin_or_organizer, login_url='no-permission')
+def create_category(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Category created successfully!")
+            return redirect('create-category')
+    else:
+        form = CategoryForm()
+    
+    return render(request, 'category_form.html', {'form': form})

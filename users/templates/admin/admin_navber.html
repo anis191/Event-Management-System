@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="bg-[#2C3E50] text-white">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fas fa-calendar-alt text-2xl text-[#18BC9C]"></i>
+                        <a href="{% url "home" %}" class="text-xl font-bold ml-2">EventZone</a>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="{% url "home-page" %}" class="hover:text-[#18BC9C]">Home</a>
+                        <a href="{% url "group-list" %}" class="hover:text-[#18BC9C]">Groups</a>
+                        <a href="{% url "create-group" %}" class="hover:text-[#18BC9C]">Create Groups</a>
+                        <a href="{% url "organizer-dashboard" %}" class="hover:text-[#18BC9C]">All Events</a>
+                        <form method="post" action="{% url "sign-out" %}">
+                            {% csrf_token %}
+                            <button class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded-full hover:bg-[#f8d776]">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>    
+    </header>  
+</body>
+</html>

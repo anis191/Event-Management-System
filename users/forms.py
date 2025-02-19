@@ -66,7 +66,8 @@ class AssignRoleForm(StyleFormMixin, forms.Form):
 class CreateGroupForm(StyleFormMixin, forms.ModelForm):
     #for create a group we need "permissions" field
     permissions = forms.ModelMultipleChoiceField(
-        queryset = Permission.objects.all(),
+        # queryset = Permission.objects.all(),
+        queryset=Permission.objects.prefetch_related("content_type").all(),
         widget = forms.CheckboxSelectMultiple,
         required=False,     #For this we can create a "group" without any permission
         label= 'Assign Permissions'

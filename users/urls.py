@@ -10,4 +10,6 @@ urlpatterns = [
     path('admin/<int:user_id>/assign-role/', assign_role, name="assign-role"),
     path('admin/create-group', create_group, name="create-group"),
     path('admin/group-list', group_list, name="group-list"),
+    path('delete-group/<int:group_id>/', delete_group, name='delete-group'),
+    path('delete-user/<int:user_id>/', delete_user, name='delete-user'),
 ]

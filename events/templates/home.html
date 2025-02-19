@@ -8,19 +8,12 @@
             <h1 class="text-4xl md:text-6xl font-bold mb-6">EventZone - Manage Events</h1>
             <p class="text-xl mb-8">Create, organize, and manage events with EventZone platform</p>
             {% if user_type %}
-                {% if user_type == 'Admin' %}
-                    <a href="{% url "admin-dashboard" %}">
-                        <button class="bg-[#F1C40F] text-[#2C3E50] px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transition-transform">
-                        Get Started <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                    </a>
-                {% elif user_type == 'Organizer' %}
-                    <a href="{% url "organizer-dashboard" %}">
-                        <button class="bg-[#F1C40F] text-[#2C3E50] px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transition-transform">
-                        Get Started <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                    </a>
-                {% endif %}
+                <a href="{% url "organizer-dashboard" %}">
+                    <button class="bg-[#F1C40F] text-[#2C3E50] px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transition-transform">
+                    Get Started <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </a>
+                
             {% else %}
                 <a href="{% url "sign-in" %}">
                     <button class="bg-[#F1C40F] text-[#2C3E50] px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transition-transform">
@@ -29,12 +22,6 @@
                 </a>
             {% endif %}
 
-
-            {% comment %} <a href="{% url "organizer-dashboard" %}"> {% endcomment %}
-                {% comment %} <button class="bg-[#F1C40F] text-[#2C3E50] px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transition-transform"> {% endcomment %}
-                {% comment %} Get Started <i class="fas fa-arrow-right ml-2"></i> {% endcomment %}
-                {% comment %} </button> {% endcomment %}
-            {% comment %} </a> {% endcomment %}
         </div>
     </div>    
     <!--feature cards-->
