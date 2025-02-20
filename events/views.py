@@ -11,7 +11,9 @@ from django.contrib.auth.models import User, Group, Permission
 
 
 def is_admin_or_organizer(user):
-    return user.groups.filter(name='Organizer').exists() or user.groups.filter(name='Admin').exists()
+    # return user.groups.filter(name='Organizer').exists() or user.groups.filter(name='Admin').exists()
+    return (user.groups.filter(name='Organizer').exists() or 
+        user.groups.filter(name='Admin').exists())
 
 def is_participant(user):
     return user.groups.filter(name='Participant').exists()
@@ -97,7 +99,7 @@ def organizerDashboard(request):
 #Admin and Organizer both are create a events:
 # @login_required
 @user_passes_test(is_admin_or_organizer, login_url='no-permission')
-# @permission_required("events.add_events", login_url='no-permission')
+@permission_required("events.add_event", login_url='no-permission')
 def event_form(request):
     event_form = EventModelForm()
 
@@ -112,8 +114,9 @@ def event_form(request):
     }
     return render(request, "event_form.html", context)
 
-@login_required
-@permission_required("events.change_events", login_url='no-permission')
+# @login_required
+@user_passes_test(is_admin_or_organizer, login_url='no-permission')
+@permission_required("events.change_event", login_url='no-permission')
 def update_event(request, id):
     event = Event.objects.get(id = id)
     event_form = EventModelForm(instance=event)
@@ -130,7 +133,7 @@ def update_event(request, id):
     return render(request, "event_form.html", context)
 
 @login_required
-@permission_required("events.delete_events", login_url='no-permission')
+@permission_required("events.delete_event", login_url='no-permission')
 def delete_event(request, id):
     if request.method == 'GET':
         event = Event.objects.get(id=id)

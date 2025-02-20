@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("mobile-menu");
+            menu.classList.toggle("hidden");
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -12,18 +20,37 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <i class="fas fa-calendar-alt text-2xl text-[#18BC9C]"></i>
-                        <a href="{% url "home" %}" class="text-xl font-bold ml-2">EventZone</a>
+                        <a href="{% url 'home' %}" class="text-xl font-bold ml-2">EventZone</a>
                     </div>
+
+                    {% comment %} desktop {% endcomment %}
                     <div class="hidden md:flex space-x-8">
-                        <a href="{% url "home-page" %}" class="hover:text-[#18BC9C]">Home</a>
-                        <a href="{% url "group-list" %}" class="hover:text-[#18BC9C]">Groups</a>
-                        <a href="{% url "create-group" %}" class="hover:text-[#18BC9C]">Create Groups</a>
-                        <a href="{% url "organizer-dashboard" %}" class="hover:text-[#18BC9C]">All Events</a>
-                        <form method="post" action="{% url "sign-out" %}">
+                        <a href="{% url 'home-page' %}" class="hover:text-[#18BC9C]">Home</a>
+                        <a href="{% url 'group-list' %}" class="hover:text-[#18BC9C]">Groups</a>
+                        <a href="{% url 'create-group' %}" class="hover:text-[#18BC9C]">Create Groups</a>
+                        <a href="{% url 'organizer-dashboard' %}" class="hover:text-[#18BC9C]">All Events</a>
+                        <form method="post" action="{% url 'sign-out' %}" class="inline">
                             {% csrf_token %}
                             <button class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded-full hover:bg-[#f8d776]">Logout</button>
                         </form>
                     </div>
+
+                    {% comment %} mobile {% endcomment %}
+                    <button class="md:hidden text-2xl focus:outline-none" onclick="toggleMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+
+                {% comment %} mobile-hidden {% endcomment %}
+                <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                    <a href="{% url 'home-page' %}" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">Home</a>
+                    <a href="{% url 'group-list' %}" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">Groups</a>
+                    <a href="{% url 'create-group' %}" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">Create Groups</a>
+                    <a href="{% url 'organizer-dashboard' %}" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">All Events</a>
+                    <form method="post" action="{% url 'sign-out' %}" class="block">
+                        {% csrf_token %}
+                        <button class="w-full bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded-full hover:bg-[#f8d776]">Logout</button>
+                    </form>
                 </div>
             </div>
         </nav>    
