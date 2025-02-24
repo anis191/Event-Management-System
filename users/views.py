@@ -6,10 +6,21 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Prefetch
 from django.contrib.auth.decorators import login_required, user_passes_test
+# from events.views import user_role
 
 # check admin or not
 def is_admin(user):
     return user.groups.filter(name='Admin').exists()
+
+def user_role(user):
+    if user.is_authenticated:
+        if user.groups.filter(name='Admin').exists():
+            return 'Admin'
+        elif user.groups.filter(name='Organizer').exists():
+            return 'Organizer'
+        elif user.groups.filter(name='Participant').exists():
+            return 'Participant'
+    return None
 
 def sign_up(request):
     form = CustomRegisterForm()
@@ -34,7 +45,14 @@ def sign_in(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')
+            user_type = user_role(request.user)
+            # return redirect('home')
+            if user_type == 'Admin':
+                return redirect('admin-dashboard')
+            elif user_type == 'Organizer':
+                return redirect('organizer-dashboard')
+            elif user_type == 'Participant':
+                return redirect('participant-dashboard')
     return render(request, "registration/sign_in.html", {'form':form})
 
 @login_required

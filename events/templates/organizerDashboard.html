@@ -30,8 +30,12 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-gray-500">Total Events</p>
-                    <p class="text-3xl font-bold">{{counts.total_event}}</p>
+                    {% if user_type == 'Admin' or user_type == 'Organizer' %}
+                        <p class="text-gray-500">All Events</p>
+                        <p class="text-3xl font-bold">{{counts.total_event}}</p>
+                    {% else %}
+                        <p class="text-gray-500">Explore Events</p>
+                    {% endif %}
                 </div>
                 <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
                     <i class="fas fa-calendar text-[#18BC9C]"></i>
@@ -39,12 +43,17 @@
             </div>
         </div>
     </a>
+
     <a href="{% url "organizer-dashboard" %}?type=upcoming&title=Upcoming">
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-gray-500">Upcoming events</p>
-                    <p class="text-3xl font-bold">{{counts.upcoming}}</p>
+                    {% if user_type == 'Admin' or user_type == 'Organizer' %}
+                        <p class="text-gray-500">Upcoming events</p>
+                        <p class="text-3xl font-bold">{{counts.upcoming}}</p>
+                    {% else %}
+                        <p class="text-gray-500">Upcoming for You</p>
+                    {% endif %}
                 </div>
                 <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                     <i class="fa-solid fa-calendar-plus text-red-400"></i>
@@ -56,8 +65,12 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-gray-500">Past events</p>
-                    <p class="text-3xl font-bold">{{counts.past}}</p>
+                    {% if user_type == 'Admin' or user_type == 'Organizer' %}
+                        <p class="text-gray-500">Past events</p>
+                        <p class="text-3xl font-bold">{{counts.past}}</p>
+                    {% else %}
+                        <p class="text-gray-500">All Attended Events</p>
+                    {% endif %}
                 </div>
                 <div class="w-12 h-12 bg-[#2C3E50]/20 rounded-full flex items-center justify-center">
                     <i class="fa-solid fa-calendar-check text-[#2C3E50]"></i>
@@ -68,8 +81,12 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-gray-500">Total participants</p>
-                    <p class="text-3xl font-bold">{{total_Participants}}</p>
+                    {% if user_type == 'Admin' or user_type == 'Organizer' %}
+                        <p class="text-gray-500">Total participants</p>
+                        <p class="text-3xl font-bold">{{total_Participants}}</p>
+                    {% else %}
+                        <p class="text-gray-500">Join the Community</p>
+                    {% endif %}
                 </div>
                 <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
                     <i class="fas fa-users text-[#18BC9C]"></i>
