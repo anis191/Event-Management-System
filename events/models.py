@@ -24,7 +24,7 @@ class Event(models.Model):
         User,
         related_name="events",
         blank=True,
-        null=True
+        # null=True
     )
     rsvp = models.ManyToManyField(
         User, 
