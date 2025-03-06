@@ -98,11 +98,11 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
         # 'NAME': BASE_DIR / 'db.sqlite3',
     # }
 # }
-'''
+
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://event_management_s6pw_user:a5j32RJonsTm1eIEBfPSvXtyvaqeJQzH@dpg-cufoqrtds78s73fn4ovg-a.oregon-postgres.render.com/event_management_s6pw',
+        default='postgresql://event_management_7ikd_user:VPpEQXCAcpJPCMr9tqBXMh9GkYmPJJpf@dpg-cv4j962n91rc73e1rhf0-a.oregon-postgres.render.com/event_management_7ikd',
         conn_max_age=600
     )
 }
@@ -113,7 +113,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+'''
 # port = 8000
 PORT = os.environ.get("PORT", "8000")
 
