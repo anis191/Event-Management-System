@@ -193,4 +193,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "anisulalam2003@gmail.com"
 EMAIL_HOST_PASSWORD = "yost athf sjrs ygyj"
 
-FRONTEND_URL = 'https://event-management-system-nmbc.onrender.com'
+FRONTEND_URL = 'https:/event-management-system-nmbc.onrender.com'
