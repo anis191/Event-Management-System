@@ -6,11 +6,19 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Prefetch
 from django.contrib.auth.decorators import login_required, user_passes_test
-# from events.views import user_role
+from django.views import View
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView, LogoutView
 
 # check admin or not
 def is_admin(user):
     return user.groups.filter(name='Admin').exists()
+
+class AdminCheckMixin(UserPassesTestMixin):
+    def test_func(self):
+        return is_admin(self.request.user)
+    login_url = 'no-permission'
 
 def user_role(user):
     if user.is_authenticated:
@@ -22,6 +30,7 @@ def user_role(user):
             return 'Participant'
     return None
 
+'''
 def sign_up(request):
     form = CustomRegisterForm()
     if request.method == 'POST':
@@ -36,6 +45,24 @@ def sign_up(request):
         else:
             print("Form is not valid")
     return render(request, "registration/sign_up.html", {"form":form})
+'''
+class SignUpView(View):
+    def get(self,request,*args, **kwargs):
+        form = CustomRegisterForm
+        return render(request, "registration/sign_up.html", {"form":form})
+    
+    def post(self, request, *args, **kwargs):
+        form = CustomRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data.get('CreatePassword'))
+            user.is_active = False
+            user.save()
+            messages.success(request, "A confirmation mail has been sent. Check your email")
+            return redirect('sign-in')
+        else:
+            print("Form is not valid")
+        return render(request, "registration/sign_up.html", {"form":form})
 
 def sign_in(request):
     # Django custom sign-in/login form:
@@ -55,12 +82,17 @@ def sign_in(request):
                 return redirect('participant-dashboard')
     return render(request, "registration/sign_in.html", {'form':form})
 
+'''
 @login_required
 def sign_out(request):
     if request.method == 'POST':
         logout(request)
         return redirect('sign-in')
+'''
+class CustomSignOutView(LogoutView):
+    next_page = reverse_lazy('sign-in')
 
+'''
 def activate_user(request, user_id, token):
     try:
         user = User.objects.get(id=user_id)
@@ -75,6 +107,22 @@ def activate_user(request, user_id, token):
             return HttpResponse("Invalid user id and url's")
     except:
         return HttpResponse('User Not Found!')
+'''
+class ActivateUserView(View):
+    def get(self, request,user_id,token, *args, **kwargs):
+        try:
+            user = User.objects.get(id=user_id)
+            # now varify token using build in authenticate function:
+            if default_token_generator.check_token(user, token):
+                user.is_active = True
+                participant_group, created = Group.objects.get_or_create(name='Participant')
+                user.groups.add(participant_group)
+                user.save()
+                return redirect('sign-in')
+            else:
+                return HttpResponse("Invalid user id and url's")
+        except:
+            return HttpResponse('User Not Found!')
 
 @user_passes_test(is_admin, login_url='no-permission')
 def admin_dashboard(request):
@@ -133,3 +181,5 @@ def delete_user(request, user_id):
         user.delete()
         messages.success(request, "User deleted successfully.")
     return redirect('admin-dashboard')
+
+# All Profile views:
