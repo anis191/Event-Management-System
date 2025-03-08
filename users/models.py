@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class CustomUser(AbstractUser):
-    profile_image = models.ImageField(upload_to='profile_images', blank=True)
+    profile_image = models.ImageField(upload_to='profile_images', blank=True, default='profile_images/default.png')
     bio = models.TextField(blank=True)
     phone_number = models.CharField(blank=True)
 

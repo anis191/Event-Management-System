@@ -200,13 +200,11 @@ class ProfileView(TemplateView):
         context['email'] = user.email
         context['name'] = user.get_full_name()
         context['bio'] = user.bio
-        print(user.bio)
         context['profile_image'] = user.profile_image
-        print(user.profile_image)
         context['phone_number'] = user.phone_number
-        print(user.phone_number)
         context['member_since'] = user.date_joined
         context['last_login'] = user.last_login
+        context['user_type'] = user_role(user)
 
         return context
 
