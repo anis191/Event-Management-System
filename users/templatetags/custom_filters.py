@@ -9,11 +9,12 @@ def humanized_date(value):
     if value:
         today = datetime.now().date()
         value = timezone.localtime(value)
+
         if value.date() == today:
-            return f"Today at {value.strftime("%I:%M %p")}"
+            return f"Today at {value.strftime('%I:%M %p')}"
         if value.date() == today.replace(day=today.day-1):
-            return f"Yesterday at {value.strftime("%I:%M %p")}"
+            return f"Yesterday at {value.strftime('%I:%M %p')}"
         else:
-            return f"{value.date().strftime('%B %d, %Y')} {value.strftime("%I:%M %p")}"
+            return f"{value.date().strftime('%B %d, %Y')} {value.strftime('%I:%M %p')}"
     else:
-        return "No Login Record avaiable!"
+        return "No Login Record available!"
