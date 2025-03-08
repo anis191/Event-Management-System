@@ -7,12 +7,14 @@ from django.db.models import Q, Avg, Count, Min, Max, Sum
 from datetime import date
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import Group, Permission
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DetailView,UpdateView,DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin,PermissionRequiredMixin,LoginRequiredMixin
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 def is_admin_or_organizer(user):

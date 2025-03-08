@@ -34,6 +34,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Application definition
@@ -98,7 +99,8 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
         # 'NAME': BASE_DIR / 'db.sqlite3',
     # }
 # }
-
+'''
+# ************Onrender:
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
@@ -106,6 +108,7 @@ DATABASES = {
         conn_max_age=600
     )
 }
+'''
 '''
 DATABASES = {
     'default': {
@@ -118,16 +121,16 @@ DATABASES = {
 PORT = os.environ.get("PORT", "8000")
 
 #For Postgresql:
-# DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'event_management',
-        # 'USER': 'postgres',
-        # 'PASSWORD': '2345',
-        # 'HOST': 'localhost',
-        # 'PORT': '5432'
-    # }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'event_management',
+        'USER': 'postgres',
+        'PASSWORD': '2345',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
+}
 
 
 

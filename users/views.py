@@ -7,11 +7,13 @@ from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Prefetch
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, UpdateView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView, LogoutView
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # check admin or not
 def is_admin(user):
@@ -197,8 +199,12 @@ class ProfileView(TemplateView):
         context['username'] = user.username
         context['email'] = user.email
         context['name'] = user.get_full_name()
-        # context['bio'] = user.bio
-        # context['profile_image'] = user.profile_image
+        context['bio'] = user.bio
+        print(user.bio)
+        context['profile_image'] = user.profile_image
+        print(user.profile_image)
+        context['phone_number'] = user.phone_number
+        print(user.phone_number)
         context['member_since'] = user.date_joined
         context['last_login'] = user.last_login
 
@@ -232,3 +238,17 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     def form_valid(self, form):
         messages.success(self.request, "Password Reset Successfully!")
         return super().form_valid(form)
+
+class EditProfileView(UpdateView):
+    model = User
+    form_class = EditProfileForm
+    template_name = 'accounts/update_profile.html'
+    context_object_name = 'form'
+
+    #current user
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('user-profile')
