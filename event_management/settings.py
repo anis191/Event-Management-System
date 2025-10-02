@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -62,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 INTERNAL_IPS = [
     # ...
@@ -173,6 +176,8 @@ STATICFILES_DIRS = [
     BASE_DIR/'static',
 ]
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -197,4 +202,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "anisulalam2003@gmail.com"
 EMAIL_HOST_PASSWORD = "yost athf sjrs ygyj"
 
-FRONTEND_URL = 'https://event-management-system-5fc9.onrender.com'
+FRONTEND_URL = 'https://event-management-system-2vrc.onrender.com'
