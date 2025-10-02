@@ -209,4 +209,4 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # EMAIL_HOST_USER = "anisulalam2003@gmail.com"
 # EMAIL_HOST_PASSWORD = "ndnl vxcx ngwu qvsl"
 
-FRONTEND_URL = 'https://event-management-system-2vrc.onrender.com'
+FRONTEND_URL = 'https://event-management-system-v44p.onrender.com'
