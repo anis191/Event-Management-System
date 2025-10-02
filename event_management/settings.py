@@ -17,6 +17,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -103,22 +104,21 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
     # }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
+# DATABASES = {
+    # 'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://event_management_db_810v_user:vkajy8vRsm429d1vPn4VhgCtA6MaS1Pk@dpg-d3f2amripnbc739r5rg0-a.oregon-postgres.render.com/event_management_db_810v',
-        conn_max_age=600
-    )
-}
+        # default='postgresql://event_management_db_810v_user:vkajy8vRsm429d1vPn4VhgCtA6MaS1Pk@dpg-d3f2amripnbc739r5rg0-a.oregon-postgres.render.com/event_management_db_810v',
+        # conn_max_age=600
+    # )
+# }
 
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
+
 # port = 8000
 PORT = os.environ.get("PORT", "8000")
 
@@ -186,20 +186,20 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-'''
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST')  # Use your email provider's SMTP host
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Your email
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
-'''
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "anisulalam2003@gmail.com"
-EMAIL_HOST_PASSWORD = "ndnl vxcx ngwu qvsl"
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = "anisulalam2003@gmail.com"
+# EMAIL_HOST_PASSWORD = "ndnl vxcx ngwu qvsl"
 
 FRONTEND_URL = 'https://event-management-system-2vrc.onrender.com'
