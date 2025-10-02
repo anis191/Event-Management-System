@@ -106,19 +106,26 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 
 # DATABASES = {
     # 'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        # default='postgresql://event_management_db_810v_user:vkajy8vRsm429d1vPn4VhgCtA6MaS1Pk@dpg-d3f2amripnbc739r5rg0-a.oregon-postgres.render.com/event_management_db_810v',
+        # default='',
         # conn_max_age=600
     # )
 # }
 
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600
+    )
+}
+
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+'''
 # port = 8000
 PORT = os.environ.get("PORT", "8000")
 
