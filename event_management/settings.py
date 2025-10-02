@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mbmyd4x4n0qgm-nps_z4(i4!fxgcb4mpr$1fet3=#n4gp5473m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
@@ -100,22 +100,22 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
     # }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
+# DATABASES = {
+    # 'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://event_management_qxgs_user:78dce4UqnaYIhpcVfLe3xKjo10FpqxKq@dpg-cv640856l47c73d426qg-a.oregon-postgres.render.com/event_management_qxgs',
-        conn_max_age=600
-    )
-}
+        # default='postgresql://event_management_qxgs_user:78dce4UqnaYIhpcVfLe3xKjo10FpqxKq@dpg-cv640856l47c73d426qg-a.oregon-postgres.render.com/event_management_qxgs',
+        # conn_max_age=600
+    # )
+# }
 
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
+
 # port = 8000
 PORT = os.environ.get("PORT", "8000")
 
@@ -189,6 +189,7 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Your email
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
 '''
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True

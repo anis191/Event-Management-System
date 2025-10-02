@@ -1,46 +1,64 @@
 import os
 import django
-from faker import Faker
 import random
-from events.models import Participant, Event, Category
+from faker import Faker
 
 # Set up Django environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'event_management.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'event_management.settings')  # Replace with your project folder if needed
 django.setup()
 
-# Function to populate the database
+from events.models import Event, Category
+from users.models import CustomUser
+
 def populate_db():
-    # Initialize Faker
     fake = Faker()
 
+    # ---------------------------
     # Create Categories
-    categories = [Category.objects.create(
-        name=fake.word().capitalize(),
-        description=fake.paragraph()
-    ) for _ in range(5)]
+    # ---------------------------
+    categories = []
+    for _ in range(5):
+        cat = Category.objects.create(
+            name=fake.word().capitalize(),
+            description=fake.paragraph()
+        )
+        categories.append(cat)
     print(f"Created {len(categories)} categories.")
 
-    # Create Participants
-    participants = [Participant.objects.create(
-        name=fake.name(),
-        email=fake.email()
-    ) for _ in range(10)]
-    print(f"Created {len(participants)} participants.")
+    # ---------------------------
+    # Create Users
+    # ---------------------------
+    users = []
+    for i in range(10):
+        user = CustomUser.objects.create_user(
+            username=fake.user_name() + str(i),  # usernames must be unique
+            email=fake.email(),
+            password="password123"  # default password for all fake users
+        )
+        users.append(user)
+    print(f"Created {len(users)} users.")
 
+    # ---------------------------
     # Create Events
+    # ---------------------------
     events = []
     for _ in range(20):
         event = Event.objects.create(
-            name=fake.sentence(),
+            name=fake.sentence(nb_words=4),
             description=fake.paragraph(),
             date=fake.date_this_year(),
             time=fake.time(),
             location=fake.address(),
             category=random.choice(categories)
         )
-        event.assign_to.set(random.sample(participants, random.randint(1, 3)))
+        # Assign random users to event
+        event.assign_to.set(random.sample(users, random.randint(1, 3)))
+        # Optional: assign some RSVPs
+        event.rsvp.set(random.sample(users, random.randint(0, 3)))
         events.append(event)
+
     print(f"Created {len(events)} events.")
+    print("✅ Database populated successfully!")
 
-    print("Database populated successfully!")
-
+if __name__ == "__main__":
+    populate_db()
