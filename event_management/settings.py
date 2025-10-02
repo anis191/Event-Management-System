@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'events',
-    'users',
+    # 'users',
+    'users.apps.UsersConfig', 
     'core',
     "debug_toolbar",
 ]
