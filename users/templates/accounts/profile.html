@@ -2,64 +2,106 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Profile</title>
     <link rel="stylesheet" href="{% static 'CSS/output.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-      function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("hidden");
-      }
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("hidden");
+            document.getElementById("sidebar").classList.toggle("md:flex");
+        }
     </script>
-  </head>
-  <body class="bg-gray-50 text-gray-800">
+</head>
+<body class="profile-container">
     {% include "common-templates/navber.html" %}
+
     <div class="flex flex-col md:flex-row min-h-screen">
-      <button class="md:hidden p-4 bg-blue-600 text-white" onclick="toggleSidebar()">☰ Menu</button>
-      <aside id="sidebar" class="w-64 bg-blue-700 text-white shadow-md md:block hidden md:flex md:flex-col">
-        <div class="p-4">
-          <h2 class="text-xl font-semibold">Menu</h2>
-        </div>
-        <nav class="mt-6">
-          <a href="#" class="block py-2 px-4 bg-blue-800 hover:bg-blue-600 rounded-md">Profile</a>
-          <a href="{% url "edit-profile" %}" class="block py-2 px-4 hover:bg-blue-600 rounded-md">Edit Profile</a>
-          <a href="{% url 'passwd-change' %}" class="block py-2 px-4 hover:bg-blue-600 rounded-md">Change Password</a>
-        </nav>
-      </aside>
+        <!-- Mobile Menu Toggle -->
+        <button class="md:hidden p-4 flex items-center justify-center gap-2" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i> <span>Menu</span>
+        </button>
 
-      <main class="flex-1 p-8 bg-white text-gray-800 rounded-lg m-4">
-        <h1 class="text-3xl font-bold text-gray-800 mb-8">User Profile</h1>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 md:w-72 sidebar hidden md:flex md:flex-col">
+            <div class="p-6 border-b border-gray-700">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fas fa-user-circle"></i> Profile Menu
+                </h2>
+            </div>
+            <nav class="mt-6 flex-1">
+                <a href="#" class="sidebar-item active"><i class="fas fa-user w-5 text-center"></i> Profile Overview</a>
+                <a href="{% url 'edit-profile' %}" class="sidebar-item"><i class="fas fa-edit w-5 text-center"></i> Edit Profile</a>
+                <a href="{% url 'passwd-change' %}" class="sidebar-item"><i class="fas fa-key w-5 text-center"></i> Change Password</a>
+            </nav>
+            <div class="p-6 border-t border-gray-700 text-sm text-gray-400">
+                <p>Last login: {{ last_login|humanized_date }}</p>
+            </div>
+        </aside>
 
-        <div class="flex flex-col md:flex-row items-center mb-8">
-          <img src="{% if profile_image %}{{ profile_image.url }}{% else %}/media/profile_images/default.png{% endif %}" alt="User Avatar" class="w-32 h-32 rounded-full object-cover mr-6 border-4 border-blue-700" />
-          <div class="text-center md:text-left">
-            <h2 class="text-2xl font-semibold text-gray-800">{{ name }}</h2>
-            <p class="text-gray-600">{{user_type}}</p>
-          </div>
-        </div>
+        <!-- Main Content -->
+        <main class="flex-1 main-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="relative z-10 flex flex-col md:flex-row items-center gap-6">
+                    <div class="relative">
+                        <img src="{% if profile_image %}{{ profile_image.url }}{% else %}/media/profile_images/default.png{% endif %}" alt="User Avatar" class="profile-avatar rounded-full object-cover" />
+                        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                            <i class="fas fa-check text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h1 class="text-3xl font-bold mb-2">{{ name }}</h1>
+                        <div class="user-type-badge">{{ user_type }}</div>
+                        <p class="text-blue-100 mt-4 flex items-center justify-center md:justify-start gap-2">
+                            <i class="fas fa-calendar-check"></i> Member since {{ member_since|humanized_date }}
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="p-6 border border-gray-300 rounded-lg hover:shadow-md transition-shadow">
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">Personal Information</h3>
-            <p class="text-gray-600"><span class="font-medium">Email:</span> {{ email }}</p>
-            <p class="text-gray-600"><span class="font-medium">Username:</span> {{ username }}</p>
-            <p class="text-gray-600"><span class="font-medium">Contact:</span> {{phone_number}}</p>
-          </div>
+            <!-- Profile Information -->
+            <div class="p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Personal Information Card -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+                        <div class="space-y-2">
+                            <div class="info-item"><span class="info-label">Email Address</span><span class="info-value">{{ email }}</span></div>
+                            <div class="info-item"><span class="info-label">Username</span><span class="info-value">{{ username }}</span></div>
+                            <div class="info-item"><span class="info-label">Phone Number</span><span class="info-value">{{ phone_number }}</span></div>
+                        </div>
+                    </div>
 
-          <div class="p-6 border border-gray-300 rounded-lg shadow-lg hover:shadow-2xl transition-shadow">
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">Account Information</h3>
-            <p class="text-gray-600"><span class="font-medium">Member Since:</span> {{ member_since|humanized_date }}</p>
-            <p class="text-gray-600"><span class="font-medium">Last Login:</span> {{ last_login|humanized_date }}</p>
-          </div>
-        </div>
+                    <!-- Account Information Card -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-chart-line"></i> Account Information</h3>
+                        <div class="space-y-2">
+                            <div class="info-item"><span class="info-label">Member Since</span><span class="info-value">{{ member_since|humanized_date }}</span></div>
+                            <div class="info-item"><span class="info-label">Last Login</span><span class="info-value">{{ last_login|humanized_date }}</span></div>
+                            <div class="info-item"><span class="info-label">Account Status</span><span class="info-value flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Active</span></div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="p-6 border border-gray-300 rounded-lg shadow-lg hover:shadow-2xl transition-shadow mt-8">
-          <h3 class="text-lg font-semibold text-gray-700 mb-2">Bio</h3>
-          <p class="text-gray-600">{{bio}}</p>
-        </div>
-      </main>
+                <!-- Bio Section -->
+                <div class="bio-card">
+                    <h3><i class="fas fa-id-card"></i> About Me</h3>
+                    <div class="bio-content">
+                        {% if bio %}
+                            {{ bio }}
+                        {% else %}
+                            <p class="text-gray-500 italic">No bio information provided yet. <a href="{% url 'edit-profile' %}" class="text-blue-600 hover:text-blue-800 font-medium">Add a bio</a> to tell others about yourself.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
+
     {% include "common-templates/footer.html" %}
-  </body>
+</body>
 </html>

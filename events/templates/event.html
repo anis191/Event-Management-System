@@ -5,55 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System</title>
-    <link rel="stylesheet" href="{% static "/CSS/output.css" %}">
+    
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{% static '/CSS/output.css' %}">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'CSS/event.css' %}">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="font-[Poppins] bg-gray-50">
-    {% comment %} navber {% endcomment %}
+
+    {% comment %} Navbar {% endcomment %}
     {% include "common-templates/navber.html" %}
 
-    {% comment %} banner & stats grid {% endcomment %}
-    {% block content %}
+    {% comment %} Banner & stats grid {% endcomment %}
+    {% block content %}{% endblock content %}
 
-    {% endblock content %}
-
-        <!--events-->
-        <div class="container mx-auto px-6 py-12">
-            <h2 class="text-3xl font-bold text-center mb-8 text-[#2C3E50]">{{title}} Events</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Event Card 1 -->
-                {% for event in events %}
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                    <img src={% if event.asset and event.asset.url %}{{event.asset.url}}{% else %}{{"https://static.inevent.com/images/event-management-software.jpg"}}{% endif %} alt="Event" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="text-sm text-[#18BC9C] font-semibold mb-2">{{event.date}}</div>
-                        <div class="text-gray-600 flex justify-between">
-                            <h3 class="text-xl font-bold mb-2">{{event.name}}</h3>
-                            <span><i class="fa-solid fa-list mr-2"></i></i>{{event.category}}</span>
-                        </div>
-                        <p class="text-gray-600 mb-4">
-                            <span><i class="fas fa-map-marker-alt mr-2"></i>{{event.location}}</span>
-                        </p>
-                        <div class="flex gap-5 justify-center">
-                            <a href="{% url "event-details" event.id %}">
-                                <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085]">
-                                    Details
-                                </button>
-                            </a>
-                            <a href="{% url "rsvp-event" event.id %}">
-                                <button type="submit" class="bg-[#E74C3C] text-white px-4 py-2 rounded hover:bg-[#C0392B]">
-                                    RSVP
-                                </button>
-                            </a>
-                        </div>
+    <!-- Events Section -->
+    <div class="container mx-auto px-6 py-1">
+        <h2 class="text-4xl font-bold text-center mb-4 text-[#1e293b]">{{title}} Events</h2>
+        <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+            Discover and join amazing events tailored just for you. From conferences to workshops, find your next experience.
+        </p>
+        
+        <div class="events-grid">
+            {% for event in events %}
+            <div class="event-card">
+                <div class="relative overflow-hidden">
+                    <img src="{% if event.asset and event.asset.url %}{{event.asset.url}}{% else %}https://static.inevent.com/images/event-management-software.jpg{% endif %}" 
+                         alt="{{event.name}}" 
+                         class="event-image">
+                    <div class="category-tag">
+                        <i class="fa-solid fa-list mr-1"></i>{{event.category}}
                     </div>
                 </div>
-                {% endfor %}
+                
+                <div class="card-content">
+                    <div class="date-badge">
+                        <i class="fa-regular fa-calendar"></i>
+                        {{event.date}}
+                    </div>
+                    
+                    <h3 class="event-name">{{event.name}}</h3>
+                    
+                    <div class="location-info">
+                        <i class="fas fa-map-marker-alt text-[#E74C3C]"></i>
+                        <span>{{event.location}}</span>
+                    </div>
+                    
+                    <div class="flex gap-4 mt-6">
+                        <a href="{% url 'event-details' event.id %}" class="flex-1">
+                            <button class="btn-details w-full">View Details</button>
+                        </a>
+                        <a href="{% url 'rsvp-event' event.id %}" class="flex-1">
+                            <button class="btn-rsvp w-full">RSVP Now</button>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>    
+            {% endfor %}
+        </div>
+    </div>    
     
-    {% comment %} footer {% endcomment %}
+    {% comment %} Footer {% endcomment %}
     {% include "common-templates/footer.html" %}
 </body>
 </html>

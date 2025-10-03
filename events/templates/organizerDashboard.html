@@ -1,149 +1,180 @@
 {% extends "event.html" %}
+{% load static %}
 
 {% block content %}
-<section class="container mx-auto flex justify-between items-center mt-8 mb-5 px-5">
-    {% if user_type == "Admin" %}
-        <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">Manage Events</h1>
-    {% elif user_type == "Organizer" %}
-        <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">Organizer Dashboard</h1>
-    {% elif user_type == "Participant" %}
-        <h1 class="md:text-2xl text-xl font-bold text-[#2C3E50]">All Events</h1>
-    {% endif %}
-    {% if user_type == 'Admin' or user_type == "Organizer" %}
-        <div class="flex flex-col sm:flex-row gap-2">
-            <a href="{% url 'event-form' %}" 
-               class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded hover:bg-[#f8d776] flex items-center justify-center">
-                <i class="fas fa-plus mr-2"></i>New Event
-            </a>
-            <a href="{% url 'create-category' %}" 
-               class="bg-[#F1C40F] text-[#2C3E50] px-4 py-2 rounded hover:bg-[#f8d776] flex items-center justify-center">
-                <i class="fas fa-plus mr-2"></i>New Category
-            </a>    
-        </div>        
-    {% endif %}
-</section>
+<link rel="stylesheet" href="{% static 'CSS/organizer_dashboard.css' %}">
 
-<main class="px-5">
-    {% comment %} stats grid {% endcomment %}
-    <section class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-    <a href="{% url "organizer-dashboard" %}?type=all&title=All">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="flex items-center justify-between">
-                <div>
-                    {% if user_type == 'Admin' or user_type == 'Organizer' %}
-                        <p class="text-gray-500">All Events</p>
-                        <p class="text-3xl font-bold">{{counts.total_event}}</p>
-                    {% else %}
-                        <p class="text-gray-500">Explore Events</p>
-                    {% endif %}
-                </div>
-                <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-calendar text-[#18BC9C]"></i>
-                </div>
-            </div>
+<section class="container mx-auto px-4 md:px-6 pt-6 pb-1">
+    <!-- Header Section -->
+    <div class="section-header">
+        <div>
+            {% if user_type == "Admin" %}
+                <h1 class="section-title">Manage Events</h1>
+                <p class="text-gray-600 text-sm mt-1">Administrator dashboard for managing all events and categories</p>
+            {% elif user_type == "Organizer" %}
+                <h1 class="section-title">Organizer Dashboard</h1>
+                <p class="text-gray-600 text-sm mt-1">Manage your events and track participant engagement</p>
+            {% elif user_type == "Participant" %}
+                <h1 class="section-title">All Events</h1>
+                <p class="text-gray-600 text-sm mt-1">Discover and join amazing events tailored for you</p>
+            {% endif %}
         </div>
-    </a>
+        
+        {% if user_type == 'Admin' or user_type == "Organizer" %}
+            <div class="header-actions">
+                <a href="{% url 'event-form' %}" class="btn-primary">
+                    <i class="fas fa-plus"></i> New Event
+                </a>
+                <a href="{% url 'create-category' %}" class="btn-secondary">
+                    <i class="fas fa-tag"></i> New Category
+                </a>    
+            </div>        
+        {% endif %}
+    </div>
 
-    <a href="{% url "organizer-dashboard" %}?type=upcoming&title=Upcoming">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="flex items-center justify-between">
-                <div>
-                    {% if user_type == 'Admin' or user_type == 'Organizer' %}
-                        <p class="text-gray-500">Upcoming events</p>
-                        <p class="text-3xl font-bold">{{counts.upcoming}}</p>
-                    {% else %}
-                        <p class="text-gray-500">Upcoming for You</p>
-                    {% endif %}
-                </div>
-                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-calendar-plus text-red-400"></i>
-                </div>
-            </div>
-        </div>
-    </a>
-    <a href="{% url "organizer-dashboard" %}?type=past&title=Past">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="flex items-center justify-between">
-                <div>
-                    {% if user_type == 'Admin' or user_type == 'Organizer' %}
-                        <p class="text-gray-500">Past events</p>
-                        <p class="text-3xl font-bold">{{counts.past}}</p>
-                    {% else %}
-                        <p class="text-gray-500">All Attended Events</p>
-                    {% endif %}
-                </div>
-                <div class="w-12 h-12 bg-[#2C3E50]/20 rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-calendar-check text-[#2C3E50]"></i>
+    <!-- Stats Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <a href="{% url 'organizer-dashboard' %}?type=all&title=All" class="block">
+            <div class="stats-card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        {% if user_type == 'Admin' or user_type == 'Organizer' %}
+                            <p class="stats-label">All Events</p>
+                            <p class="stats-number">{{counts.total_event}}</p>
+                        {% else %}
+                            <p class="stats-label">Explore Events</p>
+                            <p class="stats-number">All</p>
+                        {% endif %}
+                    </div>
+                    <div class="stats-icon bg-[#18BC9C]/20 text-[#18BC9C]">
+                        <i class="fas fa-calendar"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-    </a>
-        <div class="bg-white p-6 rounded-lg shadow-md">
+        </a>
+
+        <a href="{% url 'organizer-dashboard' %}?type=upcoming&title=Upcoming" class="block">
+            <div class="stats-card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        {% if user_type == 'Admin' or user_type == 'Organizer' %}
+                            <p class="stats-label">Upcoming Events</p>
+                            <p class="stats-number">{{counts.upcoming}}</p>
+                        {% else %}
+                            <p class="stats-label">Upcoming for You</p>
+                            <p class="stats-number">{{counts.upcoming}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="stats-icon bg-red-100 text-red-500">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+        
+        <a href="{% url 'organizer-dashboard' %}?type=past&title=Past" class="block">
+            <div class="stats-card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        {% if user_type == 'Admin' or user_type == 'Organizer' %}
+                            <p class="stats-label">Past Events</p>
+                            <p class="stats-number">{{counts.past}}</p>
+                        {% else %}
+                            <p class="stats-label">All Attended Events</p>
+                            <p class="stats-number">{{counts.past}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="stats-icon bg-[#2C3E50]/20 text-[#2C3E50]">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+        
+        <div class="stats-card">
             <div class="flex items-center justify-between">
                 <div>
                     {% if user_type == 'Admin' or user_type == 'Organizer' %}
-                        <p class="text-gray-500">Total participants</p>
-                        <p class="text-3xl font-bold">{{total_Participants}}</p>
+                        <p class="stats-label">Total Participants</p>
+                        <p class="stats-number">{{total_Participants}}</p>
                     {% else %}
-                        <p class="text-gray-500">Join the Community</p>
+                        <p class="stats-label">Join the Community</p>
+                        <p class="stats-number">{{total_Participants}}+</p>
                     {% endif %}
                 </div>
-                <div class="w-12 h-12 bg-[#18BC9C]/20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-users text-[#18BC9C]"></i>
+                <div class="stats-icon bg-[#18BC9C]/20 text-[#18BC9C]">
+                    <i class="fas fa-users"></i>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Messages -->
     {% if messages %}
-    {% for message in messages %}
-        <div class="px-4 py-2 {% if message.tags == 'success' %}bg-green-500{% endif %}">
-            <p>{{ message }}</p>
-        </div>
-    {% endfor %}
+        {% for message in messages %}
+            <div class="message-alert message-success">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
     {% endif %}
-    {% comment %} search {% endcomment %}
-<section class="px-5 mb-8 grid lg:grid-cols-[70%_auto] grid-cols-1">
-    <div class="bg-white p-6 rounded-lg shadow-md">
-        <form action="" method="POST" class="space-y-4">
-            {% csrf_token %}
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 justify-items-center">
-                {% comment %} category {% endcomment %}
-                <div>
-                    <label class="block text-sm font-medium text-[#2C3E50] mb-2">Category</label>
-                    <select name="category" class="p-2 border rounded">
-                        <option value="">Select Categories</option>
-                        {% for category in all_category %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
+
+    <!-- Search Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+        <!-- Filter Form -->
+        <div class="search-section lg:col-span-2">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">Filter Events</h3>
+            <form action="" method="POST" class="space-y-4">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-input">
+                            <option value="">All Categories</option>
+                            {% for category in all_category %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">From Date</label>
+                        <input type="date" name="from_date" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">To Date</label>
+                        <input type="date" name="to_date" class="form-input">
+                    </div>
                 </div>
-                {% comment %} from {% endcomment %}
-                <div>
-                    <label class="block text-sm font-medium text-[#2C3E50] mb-2">From Date</label>
-                    <input type="date" name="from_date" class=" p-2 border rounded">
-                </div>
-                {% comment %} to {% endcomment %}
-                <div>
-                    <label class="block text-sm font-medium text-[#2C3E50] mb-2">To Date</label>
-                    <input type="date" name="to_date" class=" p-2 border rounded">
-                </div>
-                {% comment %} button {% endcomment %}
-                <div class="flex items-end">
-                    <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085]">
-                        Search
+                
+                <div class="pt-1">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search mr-2"></i> Apply Filters
                     </button>
                 </div>
-            </div>
-        </form>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-md flex justify-center items-center">
-        <form method="GET" action="{% url 'organizer-dashboard' %}">
-            <input type="text" class="border-2 border-green-500 p-2 rounded-md focus:outline-none focus:border-green-700" name="search" placeholder="Search events" value="{{ result }}">
-            <button type="submit" class="bg-[#18BC9C] text-white px-4 py-2 rounded hover:bg-[#16a085] lg:mt-0 mt-1">
-                Search
-            </button>
-        </form>        
-    </div>
+            </form>
+        </div>
+        
+        <!-- Search Form -->
+        <div class="search-section">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">Search Events</h3>
+            <form method="GET" action="{% url 'organizer-dashboard' %}">
+                <div class="space-y-3">
+                    <div>
+                        <label class="form-label">Event Name or Keyword</label>
+                        <input type="text" 
+                               class="form-input" 
+                               name="search" 
+                               placeholder="Search events..." 
+                               value="{{ result }}">
+                    </div>
+                    
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search mr-2"></i>
+                        Search Events
+                    </button>
+                </div>
+            </form>        
+        </div>
+    </section>
 </section>
-</main>
 {% endblock content %}

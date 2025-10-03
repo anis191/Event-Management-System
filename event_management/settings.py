@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mbmyd4x4n0qgm-nps_z4(i4!fxgcb4mpr$1fet3=#n4gp5473m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
@@ -98,26 +98,12 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-# }
-
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://event_zone_db_user:cLxBTJ0tMZ8duQaTs3qaBq1Ql4IrnEft@dpg-d3fbbh9gv73c73aqh6qg-a.singapore-postgres.render.com/event_zone_db',
         conn_max_age=600
     )
 }
-
-# DATABASES = {
-    # 'default': dj_database_url.config(
-        # default=config('DATABASE_URL'),
-        # conn_max_age=600
-    # )
-# }
 
 '''
 DATABASES = {
@@ -195,13 +181,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_PORT = config('EMAIL_PORT', cast=int)
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
