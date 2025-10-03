@@ -8,10 +8,11 @@ class UsersConfig(AppConfig):
     def ready(self):
         try:
             import users.signals
-            print("DEBUG: users.signals imported successfully from apps.ready")
+            print("✅ DEBUG: users.signals imported successfully!")
         except Exception:
-            print("ERROR importing users.signals in apps.ready:")
+            print("❌ ERROR importing signals:")
             print(traceback.format_exc())
+
 
 # from django.apps import AppConfig
 
