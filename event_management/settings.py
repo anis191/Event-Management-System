@@ -17,7 +17,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
-# from decouple import config
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +34,14 @@ SECRET_KEY = 'django-insecure-mbmyd4x4n0qgm-nps_z4(i4!fxgcb4mpr$1fet3=#n4gp5473m
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
+# ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
+# CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+    'https://*.onrender.com',
+    'http://127.0.0.1:8000',
+]
+
 AUTH_USER_MODEL = 'users.CustomUser'
 
 
@@ -92,17 +99,29 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'event_management.wsgi.application'
+# WSGI_APPLICATION = 'event_management.wsgi.application'
+WSGI_APPLICATION = 'event_management.wsgi.app'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+    # 'default': dj_database_url.config(
+        # default='postgresql://event_zone_db_user:cLxBTJ0tMZ8duQaTs3qaBq1Ql4IrnEft@dpg-d3fbbh9gv73c73aqh6qg-a.singapore-postgres.render.com/event_zone_db',
+        # conn_max_age=600
+    # )
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://event_zone_db_user:cLxBTJ0tMZ8duQaTs3qaBq1Ql4IrnEft@dpg-d3fbbh9gv73c73aqh6qg-a.singapore-postgres.render.com/event_zone_db',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('dbname'),
+        'USER': config('user'),
+        'PASSWORD': config('password'),
+        'HOST': config('host'),
+        'PORT': config('port')
+    }
 }
 
 '''
