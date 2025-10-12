@@ -135,20 +135,6 @@ DATABASES = {
 # port = 8000
 PORT = os.environ.get("PORT", "8000")
 
-#For Postgresql:
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'event_management',
-        'USER': 'postgres',
-        'PASSWORD': '2345',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
-'''
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -202,10 +188,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "anisulalam2003@gmail.com"
-EMAIL_HOST_PASSWORD = "xeku uvhf qxyi mudt"
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-FRONTEND_URL = 'https://event-management-system-v44p.onrender.com'
+# FRONTEND_URL = 'https://event-management-system-v44p.onrender.com'
+FRONTEND_URL = 'https://event-zone.vercel.app'
