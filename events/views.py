@@ -52,6 +52,9 @@ def home(request):
     }
     return render(request, "home.html", context)
 
+def program_detail(request):
+    return render(request, "program_detail.html") 
+
 @login_required
 # @user_passes_test(is_admin_or_organizer, login_url='no-permission')
 def organizerDashboard(request):

@@ -1,0 +1,167 @@
+{% load static %}
+
+<section class="py-16 md:py-20 bg-white">
+  <div class="container mx-auto px-4 md:px-6">
+    <!-- Header -->
+    <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800">How EventZone Works</h2>
+      <p class="mt-4 text-slate-500 text-base md:text-lg max-w-2xl mx-auto">
+        A streamlined workflow built for large organizations and professional event teams — plan, invite, automate, and measure.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 items-start">
+      <!-- Left: Intro + CTA -->
+      <div class="lg:col-span-1">
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 md:p-8 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
+          <h3 class="text-xl font-bold text-slate-800 mb-3">Enterprise-grade workflow</h3>
+          <p class="text-slate-500 text-sm md:text-base mb-6">
+            Purpose-built tools for organizers: bulk participant management, templated emails, automated reminders, and real-time analytics.
+          </p>
+
+          <ul class="space-y-4 text-sm md:text-base text-slate-600 mb-8">
+            <li class="flex items-start gap-4">
+              <span class="w-10 h-10 inline-flex items-center justify-center bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-600 rounded-lg shadow-sm flex-shrink-0 transform transition-transform hover:-translate-y-1">
+                <i class="fa-solid fa-user-shield text-sm"></i>
+              </span>
+              <span>Role-based access & audit logs</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="w-10 h-10 inline-flex items-center justify-center bg-gradient-to-br from-emerald-50 to-emerald-100 text-emerald-600 rounded-lg shadow-sm flex-shrink-0 transform transition-transform hover:-translate-y-1">
+                <i class="fa-solid fa-envelope-open-text text-sm"></i>
+              </span>
+              <span>Reliable email delivery & templates</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="w-10 h-10 inline-flex items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 text-amber-600 rounded-lg shadow-sm flex-shrink-0 transform transition-transform hover:-translate-y-1">
+                <i class="fa-solid fa-chart-simple text-sm"></i>
+              </span>
+              <span>Dashboards & CSV exports</span>
+            </li>
+          </ul>
+
+          <a href="#" class="inline-block w-full">
+            <button class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-200 rounded-lg py-3 px-4 font-medium transition-colors">
+              Get Started — Demo
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Center: Timeline -->
+      <div class="lg:col-span-2">
+        <div class="relative py-8 md:py-10 px-4 md:px-8 bg-white border border-slate-100 rounded-2xl shadow-sm">
+          <div class="absolute left-8 right-8 top-24 hidden md:block">
+            <div class="h-0.5 bg-slate-200"></div>
+          </div>
+
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-6">
+            <!-- Step 1 -->
+            <div class="flex-1">
+              <div class="flex md:flex-col items-start md:items-center gap-4 md:gap-4">
+                <div class="relative">
+                  <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-500 to-indigo-400 text-white text-lg md:text-xl font-semibold shadow-lg transform transition-transform hover:-translate-y-1">
+                    <i class="fa-solid fa-pen-fancy"></i>
+                  </div>
+                  <div class="hidden md:block absolute -left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-white border border-slate-100 rounded-full shadow-sm"></div>
+                </div>
+                <div class="min-w-0">
+                  <h4 class="text-slate-800 font-bold text-base md:text-lg">Create & Configure</h4>
+                  <p class="text-slate-500 text-sm md:text-base mt-2">
+                    Build event pages, set schedules, ticketing, and attendee roles with granular permissions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex-1">
+              <div class="flex md:flex-col items-start md:items-center gap-4 md:gap-4">
+                <div class="relative">
+                  <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-emerald-500 to-emerald-400 text-white text-lg md:text-xl font-semibold shadow-lg transform transition-transform hover:-translate-y-1">
+                    <i class="fa-solid fa-user-plus"></i>
+                  </div>
+                  <div class="hidden md:block absolute -left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-white border border-slate-100 rounded-full shadow-sm"></div>
+                </div>
+                <div class="min-w-0">
+                  <h4 class="text-slate-800 font-bold text-base md:text-lg">Invite & Register</h4>
+                  <p class="text-slate-500 text-sm md:text-base mt-2">
+                    Bulk import contacts or generate secure registration links with custom fields and groups.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex-1">
+              <div class="flex md:flex-col items-start md:items-center gap-4 md:gap-4">
+                <div class="relative">
+                  <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-amber-500 to-amber-400 text-white text-lg md:text-xl font-semibold shadow-lg transform transition-transform hover:-translate-y-1">
+                    <i class="fa-solid fa-bell"></i>
+                  </div>
+                  <div class="hidden md:block absolute -left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-white border border-slate-100 rounded-full shadow-sm"></div>
+                </div>
+                <div class="min-w-0">
+                  <h4 class="text-slate-800 font-bold text-base md:text-lg">Notify & Automate</h4>
+                  <p class="text-slate-500 text-sm md:text-base mt-2">
+                    Schedule invites, reminders and follow-ups with templates, A/B test subjects and track deliverability.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex-1">
+              <div class="flex md:flex-col items-start md:items-center gap-4 md:gap-4">
+                <div class="relative">
+                  <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-rose-500 to-rose-400 text-white text-lg md:text-xl font-semibold shadow-lg transform transition-transform hover:-translate-y-1">
+                    <i class="fa-solid fa-chart-pie"></i>
+                  </div>
+                </div>
+                <div class="min-w-0">
+                  <h4 class="text-slate-800 font-bold text-base md:text-lg">Track & Report</h4>
+                  <p class="text-slate-500 text-sm md:text-base mt-2">
+                    Live RSVP, check-in, attendance heatmaps and exportable analytics for stakeholders.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI row -->
+          <div class="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+            <div class="bg-indigo-50 border border-slate-100 rounded-xl p-4 md:p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div class="w-10 h-10 md:w-12 md:h-12 inline-flex items-center justify-center bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-600 rounded-lg shadow-sm flex-shrink-0">
+                <i class="fa-solid fa-calendar-check text-sm md:text-base"></i>
+              </div>
+              <div>
+                <div class="text-xs md:text-sm text-slate-500">Events Managed</div>
+                <div class="text-xl md:text-2xl font-bold text-slate-800 mt-1">1,254</div>
+              </div>
+            </div>
+
+            <div class="bg-emerald-50 border border-slate-100 rounded-xl p-4 md:p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div class="w-10 h-10 md:w-12 md:h-12 inline-flex items-center justify-center bg-gradient-to-br from-emerald-50 to-emerald-100 text-emerald-600 rounded-lg shadow-sm flex-shrink-0">
+                <i class="fa-solid fa-user-check text-sm md:text-base"></i>
+              </div>
+              <div>
+                <div class="text-xs md:text-sm text-slate-500">Avg. RSVP Rate</div>
+                <div class="text-xl md:text-2xl font-bold text-slate-800 mt-1">72%</div>
+              </div>
+            </div>
+
+            <div class="bg-amber-50 border border-slate-100 rounded-xl p-4 md:p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div class="w-10 h-10 md:w-12 md:h-12 inline-flex items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 text-amber-600 rounded-lg shadow-sm flex-shrink-0">
+                <i class="fa-solid fa-envelope text-sm md:text-base"></i>
+              </div>
+              <div>
+                <div class="text-xs md:text-sm text-slate-500">Emails Sent</div>
+                <div class="text-xl md:text-2xl font-bold text-slate-800 mt-1">98,432</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

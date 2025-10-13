@@ -1,6 +1,7 @@
 from django.db import models
-# from django.contrib.auth.models import User
+# from django.contrib.auth.models import User 
 from django.conf import settings
+from cloudinary.models import CloudinaryField
 
 class Event(models.Model):
     name = models.CharField(max_length=255)
@@ -13,7 +14,9 @@ class Event(models.Model):
         on_delete=models.CASCADE,
         default=1
     )
-    asset = models.ImageField(upload_to='events_asset', blank=True, null=True, default="events_asset/default-image.jpg")
+    # asset = models.ImageField(upload_to='events_asset', blank=True, null=True, default="events_asset/default-image.jpg")
+    asset = CloudinaryField('image', blank=True, null=True, default='events_asset/default-image.jpg')
+
     assign_to = models.ManyToManyField(
         # User,
         settings.AUTH_USER_MODEL,

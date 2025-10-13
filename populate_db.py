@@ -4,7 +4,7 @@ import random
 from faker import Faker
 
 # Set up Django environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'event_management.settings')  # Replace with your project folder if needed
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'event_management.settings')
 django.setup()
 
 from events.models import Event, Category

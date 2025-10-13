@@ -20,7 +20,7 @@
     {% include "common-templates/navber.html" %}
 
     {% comment %} Banner & stats grid {% endcomment %}
-    {% block content %}{% endblock content %}
+    {% block content %}{% endblock content %} 
 
     <!-- Events Section -->
     <div class="container mx-auto px-6 py-1">
@@ -66,7 +66,15 @@
             </div>
             {% endfor %}
         </div>
-    </div>    
+    </div>
+
+    {% block homepage_sections %}
+        {% include 'process_flow.html' %}
+        
+        {% include "testimonials.html" %}
+    
+        {% include "faq.html" %}
+    {% endblock homepage_sections %}
     
     {% comment %} Footer {% endcomment %}
     {% include "common-templates/footer.html" %}

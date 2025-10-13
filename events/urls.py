@@ -3,6 +3,7 @@ from events.views import *
 
 urlpatterns = [
     path('home/', home, name="home-page"),
+    path('program_detail/', program_detail, name="program-detail"),
     path('organizer-dashboard/', organizerDashboard, name="organizer-dashboard"),
     path('participant-dashboard/', participant_dashboard, name="participant-dashboard"),
     path('event-form/', EventFormView.as_view(), name="event-form"),

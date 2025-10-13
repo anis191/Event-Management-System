@@ -1,0 +1,200 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Details - Startup Innovation Summit 2025</title>
+    <link rel="stylesheet" href="{% static "CSS/output.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    }
+    .agenda-item {
+      transition: all 0.3s ease;
+    }
+    .agenda-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .speaker-card {
+      transition: all 0.3s ease;
+    }
+    .speaker-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+<main class="relative overflow-hidden py-8 md:py-12">
+  
+  {% include "common-templates/navber.html" %}
+
+  <div class="mx-auto my-10 px-4 sm:px-6 lg:px-8 max-w-7xl">
+
+    <!-- Breadcrumbs -->
+    <nav class="text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+      <ol class="flex items-center space-x-2">
+        <li><a href="#" class="hover:text-primary-600 transition-colors">Home</a></li>
+        <li><i class="fas fa-chevron-right text-xs"></i></li>
+        <li><a href="#" class="hover:text-primary-600 transition-colors">Events</a></li>
+        <li><i class="fas fa-chevron-right text-xs"></i></li>
+        <li class="text-gray-800 font-medium">Startup Innovation Summit 2025</li>
+      </ol>
+    </nav>
+
+    <!-- Hero -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <!-- Left -->
+      <div class="lg:col-span-2 space-y-8">
+        <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-white">
+          <div class="relative h-64 md:h-80 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80&auto=format&fit=crop"
+                 alt="Event banner"
+                 class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg py-1 px-3">
+              <span class="text-sm font-semibold text-primary-600">September 20, 2025</span>
+            </div>
+          </div>
+          <div class="p-6 md:p-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">Startup Innovation Summit 2025</h1>
+            <div class="flex flex-wrap items-center gap-2 mt-4 text-gray-600">
+              <span class="flex items-center gap-1.5">
+                <i class="fas fa-clock text-primary-500"></i>
+                <span>09:30 AM — 04:00 PM</span>
+              </span>
+              <span class="hidden sm:inline">•</span>
+              <span class="flex items-center gap-1.5">
+                <i class="fas fa-map-marker-alt text-primary-500"></i>
+                <span>Grand Hall, City Conference Center</span>
+              </span>
+            </div>
+             <p class="mt-6 text-gray-700 text-lg leading-relaxed">
+            The <strong>Startup Innovation Summit 2025</strong> is a full-day flagship conference dedicated to empowering 
+            the next generation of entrepreneurs, innovators, and changemakers. It brings together visionary founders, 
+            product leaders, investors, and technology pioneers from across the globe to explore ideas that are shaping 
+            the future of startups and digital innovation.  
+            <br><br>
+            This year's summit will feature a diverse lineup of keynote talks, hands-on workshops, and interactive panels 
+            covering the most critical aspects of modern entrepreneurship — from product development and growth strategies 
+            to fundraising, leadership, and leveraging AI for sustainable innovation.  
+            <br><br>
+            Attendees will gain exclusive insights from renowned industry experts and successful founders who have scaled 
+            companies from the ground up. Each session is designed to deliver practical frameworks, real-world success 
+            stories, and lessons learned that you can immediately apply to your own startup journey.  
+            <br><br>
+            In addition to world-class sessions, the summit offers unmatched networking opportunities — connect with 
+            investors, mentors, and ecosystem partners who can help take your startup to the next level. Enjoy open 
+            discussions, collaborative meetups, and meaningful one-on-one conversations designed to spark new partnerships 
+            and inspire bold ideas.  
+          </p>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <aside class="space-y-8">
+        <!-- Speakers -->
+        <div class="bg-white rounded-2xl p-6 shadow border border-gray-100">
+          <div class="flex items-center justify-between mb-5">
+            <h4 class="text-xl font-bold text-gray-900">Featured Speakers</h4>
+            <span class="text-primary-600 bg-primary-50 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</span>
+          </div>
+          <div class="space-y-5">
+            <div class="speaker-card flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-primary-50 transition-colors">
+              <img src="https://randomuser.me/api/portraits/women/45.jpg" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow" alt="Aisha">
+              <div>
+                <div class="font-semibold text-gray-900">Aisha Rahman</div>
+                <div class="text-sm text-gray-500 mt-1">Founder, BrightStart</div>
+                <div class="flex mt-2">
+                  <span class="text-xs text-primary-600 bg-primary-100 px-2 py-1 rounded-full">Keynote</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-primary-50 transition-colors">
+              <img src="https://randomuser.me/api/portraits/men/56.jpg" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow" alt="Omar">
+              <div>
+                <div class="font-semibold text-gray-900">Dr. Omar Faisal</div>
+                <div class="text-sm text-gray-500 mt-1">AI Researcher, Nova Labs</div>
+                <div class="flex mt-2">
+                  <span class="text-xs text-primary-600 bg-primary-100 px-2 py-1 rounded-full">Panel</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-primary-50 transition-colors">
+              <img src="https://randomuser.me/api/portraits/women/60.jpg" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow" alt="Rina">
+              <div>
+                <div class="font-semibold text-gray-900">Rina Chowdhury</div>
+                <div class="text-sm text-gray-500 mt-1">Head of Growth, ScaleUp</div>
+                <div class="flex mt-2">
+                  <span class="text-xs text-primary-600 bg-primary-100 px-2 py-1 rounded-full">Panel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="w-full mt-5 text-center text-primary-600 font-medium py-3 rounded-lg border border-dashed border-primary-300 hover:bg-primary-50 transition-colors">
+            View All Speakers <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+
+        <!-- Venue -->
+        <div class="bg-white rounded-2xl p-6 shadow border border-gray-100">
+          <h4 class="text-xl font-bold text-gray-900 mb-5">Venue Details</h4>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="bg-primary-100 rounded-lg p-2.5 mt-0.5">
+                <i class="fas fa-map-marker-alt text-primary-600"></i>
+              </div>
+              <div>
+                <p class="text-gray-800 font-medium">Grand Hall, City Conference Center</p>
+                <p class="text-gray-500 text-sm mt-1">123 Conference Ave, Metropolis</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="bg-primary-100 rounded-lg p-2.5 mt-0.5">
+                <i class="fas fa-info-circle text-primary-600"></i>
+              </div>
+              <div>
+                <p class="text-gray-800 font-medium">Parking & Transportation</p>
+                <p class="text-gray-500 text-sm mt-1">Underground parking available. Metro line 2, Conference Center station.</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 rounded-xl overflow-hidden border border-gray-200">
+            <iframe class="w-full h-48" src="https://www.google.com/maps?q=23.8103,90.4125&z=15&output=embed" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          <button class="w-full mt-4 flex items-center justify-center gap-2 text-primary-600 font-medium py-3 rounded-lg border border-primary-200 hover:bg-primary-50 transition-colors">
+            <i class="fas fa-directions"></i> Get Directions
+          </button>
+        </div>
+        
+        <!-- CTA Card -->
+        <div class="gradient-bg rounded-2xl mt-2 p-6 text-white">
+          <h4 class="text-xl font-bold mb-3">Limited Seats Available</h4>
+          <p class="text-white/90 text-sm mb-5">Register now to secure your spot at the premier startup event of the year.</p>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-2xl font-bold">$199</div>
+              <div class="text-white/70 text-sm">Early Bird Price</div>
+            </div>
+            <a href="#" class="bg-blue-500 text-primary-600 font-semibold rounded-lg px-4 py-2.5 hover:bg-blue-600 transition-colors text-white">
+              Register Now
+            </a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>

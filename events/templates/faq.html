@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive FAQ Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px; /* Adjust based on your content */
+        }
+        
+        .faq-item.active svg {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <section class="py-16 md:py-20 bg-white border-t border-gray-300">
+        <div class="container mx-auto px-4 md:px-6">
+            <!-- Header -->
+            <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Frequently Asked Questions</h2>
+                <p class="mt-4 text-slate-500 text-base md:text-lg max-w-2xl mx-auto">
+                    Find answers to the most common questions about EventZone. Quick, clear, and concise.
+                </p>
+            </div>
+
+            <!-- FAQ Items -->
+            <div class="max-w-4xl mx-auto space-y-4">
+                <!-- Item 1 -->
+                <div class="faq-item bg-slate-100 border border-slate-100 rounded-2xl shadow-sm p-5 md:p-6 cursor-pointer transition-all duration-300 hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-slate-800 font-semibold text-base md:text-lg">How do I create an event?</h4>
+                        <svg class="w-5 h-5 text-indigo-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 mt-3 text-sm md:text-base">
+                            Navigate to your dashboard, click "Create Event," and fill in the details such as title, schedule, tickets, and permissions. You can preview before publishing.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="faq-item bg-slate-100 border border-slate-100 rounded-2xl shadow-sm p-5 md:p-6 cursor-pointer transition-all duration-300 hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-slate-800 font-semibold text-base md:text-lg">Can I import attendees in bulk?</h4>
+                        <svg class="w-5 h-5 text-emerald-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 mt-3 text-sm md:text-base">
+                            Yes! You can upload a CSV with attendee details or use our bulk import tool. Assign them to groups and customize registration fields easily.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="faq-item bg-slate-100 border border-slate-100 rounded-2xl shadow-sm p-5 md:p-6 cursor-pointer transition-all duration-300 hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-slate-800 font-semibold text-base md:text-lg">How do automated reminders work?</h4>
+                        <svg class="w-5 h-5 text-amber-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 mt-3 text-sm md:text-base">
+                            You can schedule reminders and follow-ups for registered attendees. Choose templates, send via email, and track open rates and click-throughs.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="faq-item bg-slate-100 border border-slate-100 rounded-2xl shadow-sm p-5 md:p-6 cursor-pointer transition-all duration-300 hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-slate-800 font-semibold text-base md:text-lg">Can I export event analytics?</h4>
+                        <svg class="w-5 h-5 text-rose-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-500 mt-3 text-sm md:text-base">
+                            Absolutely! All event metrics, including RSVPs, attendance, and engagement, can be exported as CSV or Excel files for stakeholders and reports.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Toggle active class on clicked item
+                    this.classList.toggle('active');
+                    
+                    // Close other open items (optional - remove if you want multiple open)
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== this && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
