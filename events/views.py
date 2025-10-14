@@ -56,18 +56,33 @@ def program_detail(request):
     return render(request, "program_detail.html") 
 
 @login_required
-# @user_passes_test(is_admin_or_organizer, login_url='no-permission')
 def organizerDashboard(request):
-    type = request.GET.get('type')
-    title = request.GET.get('title', "Today's")
-    result = request.GET.get('search', '').strip()
+    type_in_query = 'type' in request.GET
+
+    incoming_search = request.GET.get('search', '').strip()
+    incoming_category = request.GET.get('category', '').strip()
+    incoming_from = request.GET.get('from_date', '').strip()
+    incoming_to = request.GET.get('to_date', '').strip()
+
+    if type_in_query:
+        q_type = request.GET.get('type', 'today')
+    else:
+        if incoming_search or incoming_category or incoming_from or incoming_to:
+            q_type = 'all'
+        else:
+            q_type = 'today'
+
+    result = incoming_search
+    selected_category = incoming_category
+    from_date = incoming_from
+    to_date = incoming_to
+
     user_type = user_role(request.user)
 
-    '''1.Total, 2.Upcoming, 3.Past 4.Participants'''
     counts = Event.objects.aggregate(
-        total_event = Count('id'),
-        upcoming = Count('id', filter=(Q(date__gt=date.today()))),
-        past = Count('id', filter=(Q(date__lt=date.today())))
+        total_event=Count('id'),
+        upcoming=Count('id', filter=(Q(date__gt=date.today()))),
+        past=Count('id', filter=(Q(date__lt=date.today())))
     )
     total_Participants = User.objects.count()
     all_category = Category.objects.all()
@@ -75,42 +90,59 @@ def organizerDashboard(request):
     base_query = Event.objects.select_related('category')
     events = base_query.all()
 
-    if type == 'upcoming':
-        events = base_query.filter(date__gt=date.today())
-    elif type == 'past':
-        events = base_query.filter(date__lt=date.today())
-    elif type != 'all':
-        events = base_query.filter(date=date.today())
-    
+    if q_type == 'upcoming':
+        events = events.filter(date__gt=date.today())
+    elif q_type == 'past':
+        events = events.filter(date__lt=date.today())
+    elif q_type == 'today':
+        events = events.filter(date=date.today())
+    else:
+        pass
+
     if result:
-        events = base_query.filter(
+        events = events.filter(
             Q(name__icontains=result) | Q(description__icontains=result)
         )
-        title = "Found"
 
-    
-    if request.method == 'POST':
-        category_id = request.POST.get('category')
-        from_date = request.POST.get('from_date')
-        to_date = request.POST.get('to_date')
-        if from_date and to_date:
-            events = base_query.filter(
-                category = category_id,
-                date__gt = from_date,
-                date__lt = to_date,
-        )
-        title = "Found"
+    if selected_category:
+        events = events.filter(category_id=selected_category)
+
+    if from_date:
+        events = events.filter(date__gte=from_date)
+    if to_date:
+        events = events.filter(date__lte=to_date)
+
+    events = events.order_by('date')
+
+    if (result or selected_category or from_date or to_date) and q_type:
+        title = "Filtered Events"
+    else:
+        if q_type == 'today':
+            title = "Today's"
+        elif q_type == 'upcoming':
+            title = "Upcoming"
+        elif q_type == 'past':
+            title = "Past"
+        elif q_type == 'all':
+            title = "All Events"
+        else:
+            title = "Today's"
 
     context = {
-        "counts" : counts,
-        "total_Participants" : total_Participants,
-        "events" : events,
-        "title" : title,
-        "all_category" : all_category,
-        "user_type" : user_type
+        "counts": counts,
+        "total_Participants": total_Participants,
+        "events": events,
+        "title": title,
+        "all_category": all_category,
+        "user_type": user_type,
+        "result": result,
+        "selected_category": selected_category,
+        "from_date": from_date,
+        "to_date": to_date,
+        "current_type": q_type,
     }
     return render(request, "organizerDashboard.html", context)
-
+ 
 #Admin and Organizer both are create a events:
 # @login_required
 '''
