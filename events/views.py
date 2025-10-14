@@ -213,11 +213,13 @@ class UpdateEventView(AdminOrOrganizerCheckMixin, PermissionRequiredMixin, Updat
     
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        event_form = EventModelForm(request.POST, instance=self.object)
+        event_form = EventModelForm(request.POST, request.FILES, instance=self.object)
         if event_form.is_valid():
             event_form.save()
-            messages.success(self.request, "Event Update Successfully!")
+            messages.success(self.request, "Event Updated Successfully!")
             return redirect("update-event", self.object.id)
+        return render(request, self.template_name, {"event_form": event_form})
+
 
 '''
 @login_required

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Form</title>
+    <title>Event-Form</title>
     <link rel="stylesheet" href="{% static "CSS/output.css" %}">
 </head>
 <body class="bg-gray-100">
@@ -26,7 +26,7 @@
                 <form action="" method="POST" class="flex flex-col gap-2" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ event_form.as_p }}
-                    <button type="submit" class="bg-rose-500 text-white px-7 py-3 w-1/2 mx-auto rounded-md">Submit</button>
+                    <button type="submit" class="bg-blue-500 text-white px-7 py-3 w-1/2 mx-auto rounded-md">Submit</button>
                 </form>
             </section>    
         </div>    
