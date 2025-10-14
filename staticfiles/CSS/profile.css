@@ -6,15 +6,9 @@
     min-height: 100vh;
 }
 
-/* Sidebar */
-/* .sidebar { */
-    /* background: linear-gradient(135deg, #1e293b 0%, #334155 100%); */
-    /* box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1); */
-    /* transition: all 0.3s ease; */
-/* } */
 .sidebar {
-    background: linear-gradient(to right, #111827, #4b5563);
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, #111827, #4b5563);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
