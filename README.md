@@ -229,6 +229,10 @@ Please follow consistent code style and include a descriptive commit message.
 
 ---
 
-## Contact
+## Author
+**Anisul Alam**  
+Full-Stack Developer | Django | React | PostgreSQL
 
-Created by **Anisul Alam** — see the repo: [https://github.com/anis191/Event-Management-System](https://github.com/anis191/Event-Management-System)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anisulalam/)
+[![Portfolio](https://img.shields.io/badge/-Portfolio-000?style=flat&logo=vercel&logoColor=white)](https://anisulalam.vercel.app/)
+
